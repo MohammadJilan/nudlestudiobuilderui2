@@ -1,0 +1,429 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexera — Empowering Educators with AI & XR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-purple: #6B7FED;
+        --primary-gradient: linear-gradient(135deg, #7B8FF7 0%, #5B6FD8 100%);
+        --light-purple: #A8B4F5;
+        --lighter-purple: #C8D1F9;
+        --accent-orange: #FF8C42;
+        --white: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-gray: #6B7280;
+        --bg-light: #f5f5f7;
+        --shadow: rgba(91, 111, 216, 0.15);
+        --primary-color: #5b6fd8;
+        --primary-dark: #4a5bc4;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }          
+      /* PRICING HERO */
+      .pricing-hero {
+        background: var(--primary-gradient);
+        padding: 80px 20px 60px;
+        color: var(--white);
+        text-align: center;
+        margin-top: 80px;     
+      }
+      .pricing-hero h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .pricing-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* PRICING SECTION */
+      .pricing-section {
+        padding: 80px 20px;
+        /* Keeping in case Duren wants it later */
+        /* background: var(--white); */
+        /* background-color: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); */
+       background-color: white;        
+      }
+      .pricing-container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .pricing-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+        margin-top: 48px;
+      }
+      .pricing-card {
+         background-color: var(--text-dark);
+        /* background:linear-gradient(135deg, #7B8FF7 0%, #5B6FD8 100%); */
+        border-radius: 16px;
+        padding: 48px 32px;
+        box-shadow: 0 4px 20px var(--shadow);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .pricing-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px var(--shadow);
+      }
+      .pricing-card.featured {
+        border: 3px solid var(--accent-orange);
+        /* box-shadow:0 6px 24px rgba(255,193,7,0.5); */
+      }
+      .pricing-card.featured:hover {
+        transform: scale(1.05) translateY(-8px);
+      }
+      .featured-badge {
+        position: absolute;
+        top: 15px;
+        right: -35px;
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: var(--white);
+        padding: 8px 40px;
+        font-size: 12px;
+        font-weight: 700;
+        transform: rotate(45deg);
+        /* box-shadow: 0 4px 12px rgba(236, 84, 231, 0.3); */
+      }
+      .pricing-header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .pricing-plan-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 16px;
+      }
+      .pricing-amount {
+        font-size: 48px;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 8px;
+      }
+      .pricing-amount span {
+        font-size: 24px;
+        color: white;
+        font-weight: 400;
+      }
+      .pricing-period {
+        font-size: 14px;
+        color: white;
+      }
+      .pricing-features {
+        list-style: none;
+        padding: 0;
+        margin: 32px 0;
+      }
+      .pricing-features li {
+        padding: 12px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: white;
+        font-size: 15px;
+      }
+      .pricing-features li i {
+        color: white;
+        margin-top: 4px;
+        flex-shrink: 0;
+      }
+      .pricing-btn {
+        width: 100%;
+        padding: 16px 32px;
+        background: var(--primary-gradient);
+        border: 2px solid white;
+        border-radius: 8px;
+        color: var(--white);
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .pricing-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(91, 111, 216, 0.3);
+      }
+      .pricing-btn.btn-secondary {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+      }
+      .pricing-btn.btn-secondary:hover {
+        background: var(--primary-purple);
+        color: var(--white);
+      }    
+      .brand-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .logo-placeholder {
+        flex-shrink: 0;
+      }
+      .placeholder-box {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #5b4ec3 0%, #7c6fd8 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+      }
+      .brand-name {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0;
+        color: #5b4ec3;
+      }
+      .brand-description {
+        color: #718096;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .pricing-hero h1 {
+          font-size: 32px;
+        }
+        .pricing-hero p {
+          font-size: 16px;
+        }
+        .pricing-cards {
+          grid-template-columns: 1fr;
+        }
+        .pricing-card.featured {
+          transform: scale(1);
+        }
+        .pricing-card.featured:hover {
+          transform: translateY(-8px);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .brand-section {
+          justify-content: center;
+        }
+        .brand-description {
+          text-align: center;
+        }
+        .social-links {
+          justify-content: center;
+        }
+      }
+      @media (max-width: 480px) {
+    .pricing-card {
+      padding: 32px 20px;
+    }
+  }
+    </style>
+  </head>
+  <body>
+   <!-- INCLUDE NAVIGATION -->
+    <div id="navigation-placeholder"></div>
+    <!-- PRICING HERO -->
+    <section class="pricing-hero">
+      <h1>Choose Your Plan</h1>
+      <p>Select the perfect plan for your teaching needs. No hidden fees, cancel anytime.</p>
+    </section>
+    <!-- PRICING SECTION -->
+    <main>
+      <section class="pricing-section">
+        <div class="pricing-container">
+          <div class="pricing-cards">
+            <!-- FREE PLAN -->
+            <div class="pricing-card">
+              <div class="pricing-header">
+                <h2 class="pricing-plan-name">FREE</h2>
+                <div class="pricing-amount">
+                  R0
+                </div>
+                <div class="pricing-period">Forever free</div>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Access to basic AR templates</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Up to 5 projects</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Community support</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Basic 3D model library</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Standard resolution exports</span>
+                </li>
+              </ul>
+              <button class="pricing-btn btn-secondary">Get Started Free</button>
+            </div>
+            <!-- STANDARD PLAN -->
+            <div class="pricing-card featured">
+              <div class="featured-badge">POPULAR</div>
+              <div class="pricing-header">
+                <h2 class="pricing-plan-name">STANDARD</h2>
+                <div class="pricing-amount">
+                  R249
+                  <span>/year</span>
+                </div>
+                <div class="pricing-period">Best for individual teachers</div>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Everything in FREE, plus:</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Unlimited projects</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Premium AR templates</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Advanced 3D model library</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>HD exports</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Priority email support</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Custom branding options</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Analytics dashboard</span>
+                </li>
+              </ul>
+              <button class="pricing-btn btn-secondary">Choose Standard</button>
+            </div>
+            <!-- STUDENT PLAN -->
+            <div class="pricing-card">
+              <div class="pricing-header">
+                <h2 class="pricing-plan-name">STUDENT</h2>
+                <div class="pricing-amount">
+                  R99
+                  <span>/year</span>
+                </div>
+                <div class="pricing-period">Special student pricing</div>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Access to premium AR templates</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Up to 20 projects</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Advanced 3D model library</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>HD exports</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Email support</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Collaboration tools</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Student ID verification required</span>
+                </li>
+              </ul>
+              <button class="pricing-btn btn-secondary">Choose Student</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+   <!-- INCLUDE FOOTER -->
+    <div id="footer-placeholder"></div>
+    <!-- JAVASCRIPT TO LOAD NAVIGATION AND FOOTER -->
+    <script>
+      // Load navigation
+   // Load navigation
+fetch('navigation.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navigation-placeholder').innerHTML = data;
+
+    // Attach click handlers
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    
+    if (loginBtn) {
+      loginBtn.addEventListener("click", () => {
+        window.location.href = "auth.html?mode=login";
+      });
+    }
+    if (signupBtn) {
+      signupBtn.addEventListener("click", () => {
+        window.location.href = "auth.html?mode=signup";
+      });
+    }
+
+    // Re-execute navigation scripts safely
+    const scripts = document
+      .getElementById("navigation-placeholder")
+      .getElementsByTagName("script");
+
+    for (let script of scripts) {
+      const newScript = document.createElement("script");
+
+      if (script.src) {
+        newScript.src = script.src;
+      } else {
+        newScript.textContent = script.innerHTML;
+      }
+
+      document.body.appendChild(newScript);
+    }
+  })
+  .catch(error => console.error("Error loading navigation:", error));
+    </script>
+  </body>
+</html>

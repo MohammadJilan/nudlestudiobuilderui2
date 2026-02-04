@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+    <title>Nexera — Empowering Educators with AI & XR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-purple: #6B7FED;
+        --primary-gradient: linear-gradient(135deg, #7B8FF7 0%, #5B6FD8 100%);
+        --light-purple: #A8B4F5;
+        --lighter-purple: #C8D1F9;
+        --accent-orange: #FF8C42;
+        --accent-orange-light: #FFB380;
+        --white: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-gray: #6B7280;
+        --light-bg: #F0F2FF;
+        --bg-light: #f5f5f7;
+        --card-bg: rgba(255, 255, 255, 0.9);
+        --shadow: rgba(91, 111, 216, 0.15);
+        --primary-color: #5b6fd8;
+        --primary-dark: #4a5bc4;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }     
+
+      /* FORUM HERO */
+      .forum-hero {
+        background: var(--primary-gradient);
+        padding: 80px 20px 60px;
+        color: var(--white);
+        text-align: center;
+        margin-top: 80px;  
+      }
+      .forum-hero h1 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .forum-hero p {
+        font-size: 18px;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /* FORUM TABS */
+      .forum-tabs {
+        background: var(--white);
+        padding: 20px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      .tabs-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .tab-btn {
+        padding: 12px 28px;
+        background: transparent;
+        border: 2px solid var(--primary-purple);
+        border-radius: 8px;
+        color: var(--primary-purple);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .tab-btn:hover {
+        background: var(--primary-purple);
+        color: var(--white);
+      }
+      .tab-btn.active {
+        background: var(--primary-purple);
+        color: var(--white);
+      }
+      /* MAIN CONTAINER */
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      .section-content {
+        display: none;
+      }
+      .section-content.active {
+        display: block;
+      }
+      /* FAQ SECTION */
+      .faq-container {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 4px 20px var(--shadow);
+      }
+      .faq-header {
+        margin-bottom: 32px;
+      }
+      .faq-header h2 {
+        font-size: 32px;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+      .faq-header p {
+        font-size: 16px;
+        color: var(--text-gray);
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--bg-light);
+        padding: 24px 0;
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        gap: 16px;
+      }
+      .faq-question h3 {
+        font-size: 18px;
+        color: var(--text-dark);
+        font-weight: 600;
+      }
+      .faq-icon {
+        font-size: 20px;
+        color: var(--primary-purple);
+        transition: transform 0.3s ease;
+      }
+
+      .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .faq-item.active .faq-answer {
+        max-height: 300px;
+        padding-top: 16px;
+      }
+      .faq-answer p {
+        color: var(--text-gray);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+      /* FORUM SECTION */
+      .forum-section {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 32px;
+      }
+
+      .forum-main {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 20px var(--shadow);
+      }
+
+      .forum-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .forum-type-selector {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 4px 20px var(--shadow);
+      }
+      .forum-type-selector h3 {
+        font-size: 20px;
+        color: var(--text-dark);
+        margin-bottom: 16px;
+      }
+      .type-btn {
+        width: 100%;
+        padding: 14px 20px;
+        background: transparent;
+        border: 2px solid var(--light-purple);
+        border-radius: 8px;
+        color: var(--primary-purple);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .type-btn:hover {
+        background: var(--light-bg);
+        border-color: var(--primary-purple);
+      }
+      .type-btn.active {
+        background: var(--primary-gradient);
+        color: var(--white);
+        border-color: var(--primary-purple);
+      }
+      .type-btn i {
+        font-size: 18px;
+      }
+      .forum-info {
+        background: var(--light-bg);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .forum-info h4 {
+        font-size: 16px;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .forum-info p {
+        font-size: 14px;
+        color: var(--text-gray);
+        line-height: 1.7;
+      }
+      .question-form {
+        margin-bottom: 32px;
+      }
+
+      .form-header {
+        margin-bottom: 24px;
+      }
+
+      .form-header h2 {
+        font-size: 28px;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+      .form-header p {
+        font-size: 15px;
+        color: var(--text-gray);
+      }
+
+      .form-group {
+        margin-bottom: 24px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+     }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid var(--bg-light);
+        border-radius: 8px;
+        font-size: 15px;
+        font-family: inherit;
+        color: var(--text-dark);
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-purple);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .submit-btn {
+        padding: 14px 40px;
+        background: var(--primary-gradient);
+        border: none;
+        border-radius: 8px;
+        color: var(--white);
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(91, 111, 216, 0.3);
+      }
+
+      .questions-list {
+        border-top: 2px solid var(--bg-light);
+        padding-top: 32px;
+      }
+      .questions-list h3 {
+        font-size: 24px;
+        color: var(--text-dark);
+        margin-bottom: 24px;
+      }
+
+      .question-item {
+        padding: 20px;
+        background: var(--bg-light);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .question-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateX(4px);
+      }
+
+      .question-meta {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-size: 13px;
+        color: var(--text-gray);
+      }
+      .question-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .question-item h4 {
+        font-size: 18px;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+     .question-item p {
+        font-size: 14px;
+        color: var(--text-gray);
+        line-height: 1.7;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+      .status-badge.public {
+        background: rgba(107, 127, 237, 0.15);
+        color: var(--primary-purple);
+      }
+      .status-badge.private {
+        background: rgba(255, 140, 66, 0.15);
+        color: var(--accent-orange);
+      }
+
+      /* SUCCESS MESSAGE */
+      .success-message {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 16px 20px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        display: none;
+        align-items: center;
+        gap: 12px;
+      }
+      .success-message.show {
+        display: flex;
+      }
+      .success-message i {
+        font-size: 20px;
+      }
+
+      /* FOOTER STYLES */
+      .site-footer {
+        background: #ffffff;
+        color: #2d3748;
+        padding: 60px 20px 20px;
+        margin-top: 80px;
+        border-top: 1px solid #e2e8f0;
+     }
+      .footer-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-col {
+        display: flex;
+        flex-direction: column;
+      }
+      .brand-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .logo-placeholder {
+        flex-shrink: 0;
+      }
+      .placeholder-box {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #5b4ec3 0%, #7c6fd8 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+      }
+      .brand-name {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0;
+        color: #5b4ec3;
+      }
+      .brand-description {
+        color: #718096;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+      .footer-heading {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #2d3748;
+      }
+      .footer-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-menu li {
+        margin-bottom: 12px;
+      }
+      .footer-menu a {
+        color: #718096;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 14px;
+      }
+      .footer-menu a:hover {
+        color: #5b4ec3;
+      }
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+     .social-link {
+        width: 45px;
+        height: 45px;
+        background: #f7fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5b4ec3;
+        text-decoration: none;
+        font-size: 18px;
+        transition: all 0.3s ease;
+      }
+      .social-link:hover {
+        background: linear-gradient(135deg, #5b4ec3 0%, #7c6fd8 100%);
+        color: white;
+        border-color: #5b4ec3;
+        transform: translateY(-3px);
+      }
+      .footer-base {
+        border-top: 1px solid #e2e8f0;
+        padding-top: 20px;
+        text-align: center;
+      }
+      .footer-base p {
+        color: #a0aec0;
+        font-size: 14px;
+        margin: 0;
+      }
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .forum-hero h1 {
+          font-size: 28px;
+        }
+        .forum-section {
+          grid-template-columns: 1fr;
+        }
+        .tabs-container {
+          justify-content: center;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .brand-section {
+          justify-content: center;
+        }
+        .brand-description {
+          text-align: center;
+        }
+        .social-links {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+     <!-- INCLUDE NAVIGATION -->
+    <div id="navigation-placeholder"></div>
+
+    <!-- FORUM HERO -->
+    <section class="forum-hero">
+      <h1>Community Forum</h1>
+      <p>Get help, share ideas, and connect with other educators using Nexera AR.</p>
+    </section>
+
+    <!-- FORUM TABS -->
+    <div class="forum-tabs">
+      <div class="tabs-container">
+        <button class="tab-btn active" data-tab="faq">
+          <i class="fas fa-question-circle"></i> FAQ
+        </button>
+        <button class="tab-btn" data-tab="forum">
+          <i class="fas fa-comments"></i> Ask Questions
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+      <!-- FAQ SECTION -->
+      <div id="faq" class="section-content active">
+        <div class="faq-container">
+          <div class="faq-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about Nexera AR platform.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>How do I get started with Nexera AR?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Getting started is easy! Simply sign up for a free account, explore our template library, and start creating your first AR experience. No coding or technical skills required. We also offer video tutorials to guide you through the process.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What devices are compatible with Nexera AR?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Nexera AR works on most modern smartphones and tablets running iOS 12+ or Android 8.0+. For the best experience, we recommend devices released within the last 3 years. Desktop browsers are supported for creating content.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>Can I share my AR projects with students?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Absolutely! You can share your AR experiences via QR codes, direct links, or embed them in your learning management system. Students can view and interact with your content without needing their own Nexera account.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What's included in the Student plan?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>The Student plan includes access to premium templates, up to 20 projects, HD exports, and collaboration tools. You'll need to verify your student status with a valid student ID or institutional email address.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>Do you offer training and support?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes! We provide comprehensive video tutorials, documentation, and email support. Standard plan users get priority support, and we also offer live training webinars monthly for all users.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>Can I cancel my subscription anytime?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, you can cancel your subscription at any time. Your access will continue until the end of your billing period, and you can export all your projects before your subscription ends.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>How do I upload custom 3D models?</h3>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Standard and Student plan users can upload custom 3D models in common formats like OBJ, FBX, and GLTF. Simply drag and drop your files into the editor, and our platform will optimize them for AR viewing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORUM SECTION -->
+      <div id="forum" class="section-content">
+        <div class="forum-section">
+          <div class="forum-main">
+            <div class="success-message" id="successMessage">
+              <i class="fas fa-check-circle"></i>
+              <span>Your question has been submitted successfully!</span>
+            </div>
+
+            <form class="question-form" id="questionForm">
+              <div class="form-header">
+                <h2>Ask a Question</h2>
+                <p id="formDescription">Share your question with the community or contact our support team privately.</p>
+              </div>
+
+              <div class="form-group">
+                <label for="questionTitle">Question Title</label>
+                <input type="text" id="questionTitle" placeholder="Brief summary of your question" required>
+              </div>
+
+              <div class="form-group">
+                <label for="questionDetails">Question Details</label>
+                <textarea id="questionDetails" placeholder="Provide more details about your question or issue..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="userEmail">Your Email</label>
+                <input type="email" id="userEmail" placeholder="your.email@example.com" required>
+              </div>
+
+              <button type="submit" class="submit-btn">Submit Question</button>
+            </form>
+
+            <div class="questions-list">
+              <h3>Recent Questions</h3>
+
+              <div class="question-item">
+                <div class="question-meta">
+                  <span><i class="fas fa-user"></i> Sarah K.</span>
+                  <span><i class="fas fa-clock"></i> 2 hours ago</span>
+                </div>
+                <h4>How to add animations to 3D models?</h4>
+                <p>I've uploaded my 3D model but I'm not sure how to add animations. Can someone guide me through the process?</p>
+                <span class="status-badge public">Public</span>
+              </div>
+
+              <div class="question-item">
+                <div class="question-meta">
+                  <span><i class="fas fa-user"></i> Mike R.</span>
+                  <span><i class="fas fa-clock"></i> 5 hours ago</span>
+                </div>
+                <h4>Best practices for classroom AR experiences?</h4>
+                <p>Looking for tips on creating engaging AR content for high school biology classes. What has worked well for others?</p>
+                <span class="status-badge public">Public</span>
+              </div>
+
+              <div class="question-item">
+                <div class="question-meta">
+                  <span><i class="fas fa-user"></i> Lisa M.</span>
+                  <span><i class="fas fa-clock"></i> 1 day ago</span>
+                </div>
+                <h4>Trouble exporting in HD format</h4>
+                <p>I have a Standard subscription but the HD export option is grayed out. How can I fix this?</p>
+                <span class="status-badge private">Private</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="forum-sidebar">
+            <div class="forum-type-selector">
+              <h3>Question Type</h3>
+              <button class="type-btn active" data-type="public">
+                <i class="fas fa-users"></i>
+                Public Discussion
+              </button>
+              <button class="type-btn" data-type="private">
+                <i class="fas fa-lock"></i>
+                Private Support
+              </button>
+
+              <div class="forum-info">
+                <h4>
+                  <i class="fas fa-info-circle"></i>
+                  Public Discussion
+                </h4>
+                <p>Your question will be visible to the community. Great for general questions and discussions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>  
+    <!-- INCLUDE FOOTER -->
+    <div id="footer-placeholder"></div>
+
+  <!-- JAVASCRIPT TO LOAD NAVIGATION AND FOOTER -->
+  <!-- NAVIGATION + FOOTER LOADER -->
+<script>
+  // Load navigation
+  fetch('navigation.html')
+    .then(res => res.text())
+    .then(html => {
+      const placeholder = document.getElementById('navigation-placeholder');
+      placeholder.innerHTML = html;
+
+      // Add navigation events
+      const loginBtn = document.getElementById("loginBtn");
+      const signupBtn = document.getElementById("signupBtn");
+
+      if (loginBtn) {
+        loginBtn.addEventListener("click", () => {
+          window.location.href = "auth.html?mode=login";
+        });
+      }
+
+      if (signupBtn) {
+        signupBtn.addEventListener("click", () => {
+          window.location.href = "auth.html?mode=signup";
+        });
+      }
+
+      // Re-execute navigation scripts safely
+      const scripts = placeholder.querySelectorAll("script");
+
+      scripts.forEach(old => {
+        const newScript = document.createElement("script");
+        old.src ? (newScript.src = old.src) : (newScript.textContent = old.innerHTML);
+        document.body.appendChild(newScript);
+      });
+    })
+    .catch(err => console.error("Error loading navigation:", err));
+
+  // Load footer
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('footer-placeholder').innerHTML = html;
+    })
+    .catch(err => console.error("Error loading footer:", err));
+</script>
+
+
+<!-- MAIN FORUM PAGE LOGIC -->
+<script>
+  /* ----------------------------
+     TAB SWITCHING
+  ----------------------------- */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.section-content').forEach(sec =>
+        sec.classList.toggle('active', sec.id === target)
+      );
+    });
+  });
+  /* ----------------------------
+     FAQ ACCORDION
+  ----------------------------- */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  });
+  /* ----------------------------
+     FORUM TYPE SELECTOR
+  ----------------------------- */
+  const forumInfo = document.querySelector('.forum-info');
+  const formDescription = document.getElementById('formDescription');
+
+  const forumMessages = {
+    public: {
+      title: "Public Discussion",
+      text: "Your question will be visible to the community. Great for general questions and discussions.",
+      desc: "Share your question with the community or contact our support team privately."
+    },
+    private: {
+      title: "Private Support",
+      text: "Your question will be sent directly to our support team. Expect a response within 24 hours.",
+      desc: "Send your question directly to our support team for private assistance."
+    }
+  };
+
+  document.querySelectorAll('.type-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.type;
+
+      document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+      button.classList.add('active');
+      const data = forumMessages[type];
+      forumInfo.innerHTML = `
+        <h4><i class="fas fa-info-circle"></i> ${data.title}</h4>
+        <p>${data.text}</p>
+      `;
+      formDescription.textContent = data.desc;
+    });
+  });
+  /* ----------------------------
+     FORM SUBMISSION
+  ----------------------------- */
+  const questionForm = document.getElementById('questionForm');
+  const successMessage = document.getElementById('successMessage');
+  questionForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const activeType = document.querySelector('.type-btn.active').dataset.type;
+    const formData = {
+      title: document.getElementById('questionTitle').value,
+      details: document.getElementById('questionDetails').value,
+      email: document.getElementById('userEmail').value,
+      type: activeType
+    };
+    console.log('Form submitted:', formData);
+    successMessage.classList.add('show');
+    questionForm.reset();
+    setTimeout(() => successMessage.classList.remove('show'), 5000);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+  </body>
+</html>

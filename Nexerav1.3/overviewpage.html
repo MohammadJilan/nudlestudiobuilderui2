@@ -1,0 +1,1373 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+  <title>Nexera — Empowering Educators with AI & XR</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-blue: #5B7CE6;
+      --dark-blue: #4A63C1;
+      --light-blue: #EEF2FF;
+      --accent-yellow: #FFC107;
+      --accent-orange: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      --text-dark: #1a1a2e;
+      --text-gray: #666666;
+      --border-color: #E5E5E5;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: white;
+    }
+
+    .back-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0px;
+    }
+
+    .back-nav .container {
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-blue);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover {
+      color: var(--dark-blue);
+    }
+
+    .course-header {
+      background: var(--white);
+      padding: 32px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .header-left,
+    .header-right {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-content h1 {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    .stats-share {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .course-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 16px;
+      background: var(--light-blue);
+      border-radius: 12px;
+    }
+
+    .stat {
+      padding-bottom: -30px;
+      padding-top: -500px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .star {
+      color: var(--accent-yellow);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-gray);
+    }
+
+    .btn-enroll,
+    .btn-certificate {
+      width: 100%;
+      background: var(--primary-blue);
+      color: var(--white);
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn-enroll {
+      margin-top: 23px;
+      padding: 18px;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.15),
+        0 30px 80px rgba(91, 124, 230, 0.35);
+    }
+
+    .btn-enroll:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 0 #4A63C1,
+        0 14px 30px rgba(91, 124, 230, 0.6);
+    }
+
+    .btn-certificate:hover {
+      scale: 1.2;
+      z-index: 1000;
+    }
+
+    .linkedin-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--primary-blue);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-size: 30px;
+      border: 2px solid white;
+      padding: 20px;
+    }
+
+    .video-section {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 250px;
+      padding-bottom: -500px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .video-wrapper .media,
+    .video-wrapper img,
+    .video-wrapper video,
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary-blue) 0%, #7B93E8 100%);
+    }
+
+    .video-placeholder i {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5px 20px;
+      background-color: white !important;
+    }
+
+    .content-card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+
+    .content-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+
+    .learning-items {
+      display: grid;
+      gap: 16px;
+    }
+
+    .learning-item {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .checkmark {
+      color: var(--primary-blue);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    #toggleDesc {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: var(--primary-blue);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .lessons-section {
+      margin: 50px 0;
+    }
+
+    .lessons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .lesson-card {
+      position: relative;
+      background: linear-gradient(180deg, #f9faff, #eef2ff);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 10px 30px rgba(91, 124, 230, 0.12);
+      border: 1px solid rgba(91, 124, 230, 0.15);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(91, 124, 230, 0.2);
+    }
+
+    .lesson-media {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: white;
+      padding: 6px;
+    }
+
+    .lesson-media::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5B7CE6, #9FAEFF);
+      filter: blur(8px);
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    .lesson-media img,
+    .lesson-media video {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .lesson-info {
+      flex: 1;
+    }
+
+    .lesson-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .lesson-progress {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-top: 4px;
+    }
+
+    .lesson-action {
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lesson-action:hover {
+      background: var(--dark-blue);
+    }
+
+    .lesson-locked {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .resources-section {
+      margin-top: 60px;
+      margin-bottom: 50px;
+    }
+
+    .resources-section .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .resources-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .resource-card {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 28px;
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 480px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .resource-card:hover {
+      box-shadow: 0 6px 18px rgba(91, 124, 230, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .resource-icon {
+      font-size: 32px;
+      color: var(--primary-blue);
+    }
+
+    .resource-text h3 {
+      font-size: 18px;
+      color: #333;
+      margin: 0 0 6px;
+    }
+
+    .resource-text p {
+      font-size: 14px;
+      color: #555;
+      margin: 0;
+    }
+
+    .demo-video {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .demo-video h3 {
+      padding: 24px 32px;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .demo-video .video-wrapper {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-video .media,
+    .demo-video img,
+    .demo-video video,
+    .demo-video iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cta-section {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .cta-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-gray);
+      margin-bottom: 28px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-register {
+      padding: 16px 48px;
+      background: var(--accent-orange);
+      border: none;
+      border-radius: 8px;
+      color: var(--text-dark);
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4);
+    }
+
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(255, 193, 7, 0.5);
+    }
+
+    @media (max-width:968px) {
+      .header-container {
+        grid-template-columns: 1fr;
+      }
+
+      .header-content h1 {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .demo-video {
+        display: none;
+      }
+    }
+
+    .video-section {
+      height: 330px;
+      margin-bottom: 16px;
+    }
+
+    .btn-enroll {
+      margin-top: 0;
+      padding: 18px;
+    }
+
+    .course-description-text {
+      margin-top: -20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .btn-enroll {
+      display: inline-block;
+      padding: 10px 50px;
+      padding-top: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5B7CE6, #7B8FF7);
+      color: white;
+      box-shadow:
+        0 6px 0 #4A63C1,
+        0 10px 22px rgba(91, 124, 230, 0.45);
+      transition: all 0.2s ease;
+      margin-top: 20px;
+      margin-bottom: 0;
+      align-self: stretch;
+      text-decoration: none;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      height: 75px;
+    }
+
+    @media (max-width: 600px) {
+      .btn-enroll {
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+      }
+    }
+  </style>
+  <style>
+    #mainMediaWrap {
+      width: 100%;
+      height: 380px;
+      position: relative;
+    }
+
+    #mainMediaWrap img,
+    #mainMediaWrap iframe,
+    #mainMediaWrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    #demoSection {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #demoSection h3 {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #demoVideoWrap {
+      width: 100%;
+      height: 450px;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      background: black;
+    }
+
+    #demoVideoWrap img,
+    #demoVideoWrap iframe,
+    #demoVideoWrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .industry-select-wrap {
+      position: relative;
+      z-index: 10001;
+    }
+
+    #industryDropdown {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    #courseStats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .header-left>.course-stats:last-of-type {
+      margin-top: 16px;
+    }
+
+    .header-left>.course-stats:last-of-type .stat {
+      padding: 12px;
+    }
+
+    .stat-full {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .stat-full:hover {
+      scale: 1.2;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .course-header>.container {
+      margin-top: 24px;
+    }
+
+    .course-header .course-stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .btn-certificate,
+    .stat-full {
+      padding: 20px 22px;
+      border-radius: 14px;
+    }
+
+    .btn-certificate {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg,
+          #c7d7ff 0%,
+          #e3d7ff 50%,
+          #ffffff 100%);
+      color: #1a1a2e;
+    }
+
+    .btn-certificate::before,
+    .btn-certificate::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, white 90%, transparent),
+        radial-gradient(2px 2px at 70% 40%, white 90%, transparent),
+        radial-gradient(1.5px 1.5px at 40% 70%, white 90%, transparent),
+        radial-gradient(1.5px 1.5px at 80% 20%, white 90%, transparent);
+      opacity: 0.8;
+      animation: sparkle 6s linear infinite;
+      pointer-events: none;
+    }
+
+    .btn-certificate::after {
+      animation-duration: 9s;
+      opacity: 0.5;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-30px);
+      }
+    }
+
+    .btn-certificate,
+    .stat-full {
+      min-height: 88px;
+      padding: 26px 28px;
+      border-radius: 18px;
+    }
+
+    .btn-certificate {
+      font-size: 18px;
+    }
+
+    .stat-full .stat-value {
+      font-size: 20px;
+    }
+
+    .btn-certificate::before,
+    .stat-full::before,
+    .btn-certificate::after,
+    .stat-full::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 10% 20%, white 90%, transparent),
+        radial-gradient(2px 2px at 30% 60%, white 90%, transparent),
+        radial-gradient(1.5px 1.5px at 50% 30%, white 90%, transparent),
+        radial-gradient(1.5px 1.5px at 70% 70%, white 90%, transparent),
+        radial-gradient(2px 2px at 90% 40%, white 90%, transparent),
+        radial-gradient(1.5px 1.5px at 20% 80%, white 90%, transparent),
+        radial-gradient(2px 2px at 60% 10%, white 90%, transparent);
+      opacity: 0.9;
+      animation: sparkle 5s linear infinite;
+      pointer-events: none;
+    }
+
+    .btn-certificate::after {
+      animation-duration: 9s;
+      opacity: 0.6;
+    }
+
+    @keyframes sparkle {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-40px);
+      }
+    }
+
+    .btn-certificate,
+    .stat-full {
+      min-height: 80px;
+      padding: 24px 26px;
+      border-radius: 22px;
+      box-shadow:
+        0 0 0 2px rgba(91, 124, 230, 0.15),
+        0 30px 80px rgba(91, 124, 230, 0.35);
+    }
+
+    .btn-certificate {
+      font-size: 20px;
+    }
+
+    .stat-full .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .btn-certificate {
+      margin-bottom: 20px;
+    }
+
+    .stat-full {
+      margin-bottom: 28px;
+    }
+
+    .beginner-icon {
+      color: #5B7CE6;
+      display: flex;
+      align-items: center;
+      font-size: 46px;
+      position: relative;
+      top: 25px;
+      left: 50px;
+    }
+
+    .calender-icon {
+      color: #5B7CE6;
+      display: flex;
+      align-items: center;
+      font-size: 46px;
+      position: relative;
+      left: 105px;
+      bottom: -50px;
+      padding-top: -50px;
+    }
+
+    .stopwatch-icon {
+      color: #5B7CE6;
+      display: flex;
+      align-items: center;
+      font-size: 46px;
+      position: relative;
+      left: 35px;
+      bottom: -50px;
+      padding-top: -50px;
+    }
+
+    .briefcase-icon {
+      color: #5B7CE6;
+      display: flex;
+      align-items: center;
+      font-size: 46px;
+      position: relative;
+      left: 35px;
+      bottom: -50px;
+      padding-top: -50px;
+    }
+
+    .level-pill {
+      display: flex;
+      align-items: center;
+    }
+
+    .level-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .level-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-value {
+      font-weight: 600;
+
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .course-description-text {
+      padding: 40px 0;
+    }
+
+    .calender-icon.stat-value,
+    .stopwatch-icon.stat-value,
+    .briefcase-icon.stat-value {
+      color: #5B7CE6;
+      display: flex;
+      align-items: center;
+      font-size: 46px;
+      margin-bottom: -50px;
+      margin-top: 80px;
+    }
+  </style>
+
+  <style>
+    .course-stats .stat {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      gap: 16px;
+      padding-left: 110px;
+    }
+
+    .calender-icon,
+    .stopwatch-icon,
+    .briefcase-icon {
+      position: static !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 46px;
+      min-width: 46px;
+      margin: 0;
+
+    }
+
+    .stat-value {
+      padding-left: 0 !important;
+      margin: 0 !important;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navigation-placeholder"></div>
+  <div class="back-nav">
+    <div class="container">
+      <button class="back-btn" onclick="window.history.back()">← Back to courses</button>
+
+    </div>
+  </div>
+
+  <section class="course-header">
+
+    <div class="back-nav">
+      <div class="container">
+        <button class="back-btn" onclick="window.history.back()">← Back to courses</button>
+      </div>
+    </div>
+    <div class="header-container" style="margin-top: 20px;">
+      <div class="header-left header-content">
+
+        <h1 id="courseTitle">Animal Anatomy</h1>
+        <p class="course-description-text" id="headerDescription">
+          Primary Agriculture
+        </p>
+        <button class="btn-certificate">
+          <div class="linkedin-icon" style="margin-right:26px;">
+            <i class="fab fa-linkedin-in"></i>
+          </div>
+          <p style="margin-left:-16px;">Shareable Certificate</p>
+        </button>
+        <button class="btn-certificate">
+          <div class="linkedin-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="stat-value" id="statLevel" style="margin-left: 26px;">Beginner</div>
+          <div class="stat-label" style="visibility: hidden;">Recommended level</div>
+        </button>
+      </div>
+      <div class="header-right">
+
+        <div class="video-section">
+          <div class="video-wrapper" id="mainMediaWrap">
+            <div class="video-placeholder" id="mainVideoPlaceholder">
+              <i class="fas fa-play-circle"></i>
+              <span>Course Introduction</span>
+            </div>
+          </div>
+        </div>
+        <a href="persona.html" class="btn-enroll" id="startExperience" target="_blank">
+          Start Experience
+        </a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="course-stats">
+        <div class="stat" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35); ">
+
+          <div class="calender-icon"
+            style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:30px; border: 2px solid white; padding: 20px; ">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="stat-value" id="statFlex" style="padding-left: 30px;">Flexible</div>
+        </div>
+        <div class="stat" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35);">
+          <div class="stopwatch-icon"
+            style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:30px; border: 2px solid white; padding: 20px; ">
+            <i class="fas fa-stopwatch"></i>
+          </div>
+          <div class="stat-value" id="statTime" style="padding-left: 30px;   margin-bottom: -30px;">45 minutes</div>
+        </div>
+        <div class="stat stat-industry" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35);">
+          <div class="briefcase-icon"
+            style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:30px; border: 2px solid white; padding: 20px; ">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="stat-value" id="statCaps" style="padding-left: 30px;">Industry-Relevant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="content-card course-description">
+      <h2>What you will Learn</h2>
+      <p id="courseDescription"></p>
+      <button id="toggleDesc">Read more</button>
+    </div>
+    <div class="content-card">
+      <h2>Skills you will gain</h2>
+      <div class="learning-items" id="skillsItems"></div>
+    </div>
+    <div class="lessons-section container">
+      <h2>Lessons</h2>
+      <div class="lessons-list" id="lessonsList"></div>
+    </div>
+    <div class="content-card">
+      <h2>Explore Topics</h2>
+      <div id="exploreTopics" style="display:flex; flex-wrap:wrap; gap:16px;"></div>
+    </div>
+    <section class="resources-section">
+      <h2 class="section-title">Resources</h2>
+      <div class="resources-container" id="resourcesContainer"></div>
+    </section>
+    <div class="demo-video" id="demoSection">
+      <h3>See a Demo of Interactive AR Experience</h3>
+      <div class="video-wrapper" id="demoVideoWrap"></div>
+    </div>
+    <div class="cta-section">
+      <h2>Would you like to create experiences like this?</h2>
+      <p>Join thousands of educators transforming their teaching with immersive 3D/AR technology. No coding skills
+        required!</p>
+      <button class="btn-register" onclick="window.location.href='index.html'">Register for free</button>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+  <script>
+    const courseModules = {
+      1: {
+        id: 1,
+        industry: "agriculture",
+        title: "Animal Production",
+        description: "Learn essential livestock production techniques",
+        header: "Introduction to animal farming. It encompasses the care of livestock such as cattle, sheep, goats, pigs, and poultry, ensuring their health, nutrition, and welfare to maximize productivity.",
+        level: "Beginner Level",
+        time: "45 minutes",
+        flex: "Flexible",
+        caps: "Industry-Relevant",
+        locked: false,
+        modules: [
+          {
+            id: 1,
+            title: "Animal Anatomy",
+            description: "Introduction to animal farming. It encompasses the care of livestock such as cattle, sheep, goats, pigs, and poultry, ensuring their health, nutrition, and welfare to maximize productivity.",
+            mainMedia: { type: "video", src: "images/GoatSkeleton.mp4" },
+            demoMedia: { type: "video", src: "images/GoatSkeleton.mp4" },
+            learning: ["Understand animal body systems"],
+            skills: ["Identify animal anatomy", "Animal handling & care", "Livestock breeding fundamentals", "Farm housing & management"],
+            topics: [
+              "Skeletal structure",
+              "Muscle groups",
+              "Digestive anatomy"
+            ],
+            lessons: [
+              {
+                title: "Skeletal systems",
+                progress: 100,
+                media: { type: "video", src: "images/GoatSkeleton.mp4" },
+                locked: false
+              },
+              {
+                title: "Muscular systems",
+                progress: 60,
+                media: { type: "image", src: "images/img5.png" },
+                locked: false
+              },
+              {
+                title: "Digestive systems",
+                progress: 0,
+                media: { type: "image", src: "images/img44.jpg" },
+                locked: true
+              }
+            ],
+            resources: [
+              {
+                title: "Animal Anatomy Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              },
+              {
+                title: "Animal Lesson Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              },
+              {
+                title: "Animal Teaching Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              }
+            ]
+          },
+          {
+            id: 2,
+            title: "Feeding Systems",
+            description: "Introduction to feed & dietary planning. It encompasses the care of livestock such as cattle, sheep, goats, pigs, and poultry, ensuring their health, nutrition, and welfare to maximize productivity.",
+            mainMedia: { type: "image", src: "images/img5.jpg" },
+            learning: ["Understand feeding systems"],
+            skills: ["Identify animal anatomy", "Animal handling & care", "Livestock breeding fundamentals", "Farm housing & management"],
+            topics: [
+              "Skeletal structure",
+              "Muscle groups",
+              "Digestive anatomy"
+            ],
+            lessons: [
+              {
+                title: "Skeletal systems",
+                progress: 100,
+                media: { type: "image", src: "images/img2.jpg" },
+                locked: false
+              },
+              {
+                title: "Muscular systems",
+                progress: 60,
+                media: { type: "image", src: "images/img3.jpg" },
+                locked: false
+              },
+              {
+                title: "Digestive systems",
+                progress: 0,
+                media: { type: "image", src: "images/img4.jpg" },
+                locked: true
+              }
+            ],
+            resources: [
+              {
+                title: "Animal Anatomy Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              },
+              {
+                title: "Animal Lesson Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              },
+              {
+                title: "Animal Teaching Guide",
+                desc: "PDF reference for animal anatomy",
+                file: "resources/animal-anatomy.pdf",
+                icon: "fas fa-file-pdf"
+              }
+            ]
+          },
+          {
+            id: 3,
+            title: "Disease Control",
+            description: "Disease prevention & management",
+            mainMedia: { type: "image", src: "images/environmental-management.jpg" },
+            learning: ["Understand disease prevention"],
+            skills: ["Identify and prevent diseases"],
+            lessons: ["Common diseases", "Prevention methods"],
+            resources: []
+          },
+          {
+            id: 4,
+            title: "Animal Welfare",
+            description: "Ensuring animal welfare standards",
+            mainMedia: { type: "image", src: "images/greenhouse.jpg" },
+            learning: ["Understand welfare standards"],
+            skills: ["Apply welfare practices"],
+            lessons: ["Welfare standards", "Housing design"],
+            resources: []
+          }
+        ]
+      },
+
+      2: {
+        id: 2,
+        industry: "agriculture",
+        title: "Plant Production",
+        description: "Understand modern plant production systems",
+        header: "Primary Agriculture",
+        level: "Beginner",
+        time: "45 minutes",
+        flex: "Flexible",
+        caps: "Industry-Relevant",
+        locked: false,
+        modules: [
+          {
+            id: 1,
+            title: "Soil Preparation",
+            description: "Preparing land for planting",
+            mainMedia: { type: "image", src: "images/crop-production.jpg" },
+            learning: ["Understand soil health"],
+            skills: ["Prepare soil correctly"],
+            lessons: ["Soil types", "Soil testing"],
+            resources: []
+          }
+        ]
+      }
+    };
+
+    function createMainMediaHTML(media) {
+      if (!media) return "";
+
+      if (media.type === "image") {
+        return `<img src="${media.src}" alt="Course media" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">`;
+      }
+
+      if (media.type === "vimeo") {
+        return `<iframe
+          src="${media.src}"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          style="border-radius:20px;">
+        </iframe>`;
+      }
+
+      if (media.type === "video") {
+        return `<video style="width:100%; height:100%; object-fit:cover; border-radius:20px;" controls autoplay muted playsinline loop>
+          <source src="${media.src}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>`;
+      }
+
+      return "";
+    }
+
+    function createDemoMediaHTML(media) {
+      if (!media) return "";
+
+      if (media.type === "image") {
+        return `<img src="${media.src}" alt="Demo media" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">`;
+      }
+
+      if (media.type === "vimeo") {
+        return `<iframe
+          src="${media.src}"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          style="border-radius:20px;">
+        </iframe>`;
+      }
+
+      if (media.type === "video") {
+        return `<video style="width:100%; height:100%; object-fit:cover; border-radius:20px;" autoplay loop muted playsinline controls>
+          <source src="${media.src}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>`;
+      }
+
+      return "";
+    }
+
+    function createLessonMedia(media) {
+      if (!media) return "";
+
+      if (media.type === "image") {
+        return `<img src="${media.src}" alt="">`;
+      }
+
+      if (media.type === "video") {
+        return `<video src="${media.src}" autoplay muted loop playsinline></video>`;
+      }
+
+      return "";
+    }
+
+    function renderResources(module) {
+      const container = document.getElementById("resourcesContainer");
+      if (!container) return;
+
+      if (!module.resources || module.resources.length === 0) {
+        container.innerHTML = `<p style="text-align:center;color:#777;">No resources available.</p>`;
+        return;
+      }
+      container.innerHTML = module.resources.map(r => `
+        <a href="${r.file}" target="_blank" class="resource-card">
+          <i class="${r.icon} resource-icon"></i>
+          <div class="resource-text">
+            <h3>${r.title}</h3>
+            <p>${r.desc}</p>
+          </div>
+        </a>
+      `).join("");
+    }
+
+    function loadCourse() {
+      const params = new URLSearchParams(window.location.search);
+      const courseId = Number(params.get("course")) || 1;
+      const moduleIndex = Number(params.get("module")) - 1 || 0;
+
+      const course = courseModules[courseId];
+      if (!course) {
+        console.error("Course not found");
+        return;
+      }
+
+      const module = course.modules[moduleIndex];
+      if (!module) {
+        console.error("Module not found");
+        return;
+      }
+
+      document.getElementById("courseTitle").textContent = module.title;
+      document.getElementById("headerDescription").textContent = module.description;
+      document.getElementById("statLevel").textContent = course.level;
+      document.getElementById("statTime").textContent = course.time;
+      document.getElementById("statFlex").textContent = course.flex;
+      document.getElementById("statCaps").textContent = course.caps;
+
+      const descEl = document.getElementById("courseDescription");
+      const toggleBtn = document.getElementById("toggleDesc");
+      const fullDesc = module.description;
+      const shortDesc = fullDesc.slice(0, 160) + "...";
+      let isOpen = false;
+      descEl.textContent = shortDesc;
+
+      toggleBtn.onclick = () => {
+        isOpen = !isOpen;
+        descEl.textContent = isOpen ? fullDesc : shortDesc;
+        toggleBtn.textContent = isOpen ? "Show less" : "Read more";
+      };
+
+      document.getElementById("mainMediaWrap").innerHTML =
+        createMainMediaHTML(module.mainMedia);
+
+      document.getElementById("skillsItems").innerHTML =
+        module.skills.map(s => `<div class="learning-item"><span class="checkmark">✓</span>${s}</div>`).join("");
+
+      document.getElementById("exploreTopics").innerHTML =
+        (module.topics || []).map(t => `<div style="padding:12px 16px;background:#eef2ff;border-radius:8px;">${t}</div>`).join("");
+
+      document.getElementById("lessonsList").innerHTML =
+        module.lessons.map((l, i) => `
+          <div class="lesson-card ${l.locked ? "lesson-locked" : ""}">
+            <div class="lesson-media">
+              ${createLessonMedia(l.media)}
+            </div>
+            <div class="lesson-info">
+              <div class="lesson-title">Lesson ${i + 1}: ${l.title}</div>
+              <div class="lesson-progress">${l.progress}% complete</div>
+            </div>
+            <button class="lesson-action" target="_blank" onclick="window.location.href='https://preview.nex-era.app/goat/'">${l.progress === 100 ? "Continue" : "Start"}</button>
+          </div>
+        `).join("");
+
+      const demoWrap = document.getElementById("demoVideoWrap");
+      demoWrap.innerHTML = createDemoMediaHTML(module.demoMedia || module.mainMedia);
+
+      renderResources(module);
+    }
+
+    document.addEventListener("DOMContentLoaded", loadCourse);
+
+    fetch("navigation.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("navigation-placeholder").innerHTML = html;
+      })
+      .catch(err => console.error("Navigation load failed:", err));
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+      })
+      .catch(err => console.error("Footer load failed:", err));
+  </script>
+</body>
+
+</html>

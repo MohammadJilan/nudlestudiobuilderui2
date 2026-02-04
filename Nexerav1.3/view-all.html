@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+    <title>Industries - NEXERA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+      /* ========================================
+         GLOBAL STYLES
+         ======================================== */
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9fafb;
+        color: #1a1a2e;
+      }
+
+      /* ========================================
+         PAGE HERO
+         ======================================== */
+      .page-hero {
+        background: linear-gradient(135deg, #7B8FF7 0%, #5B6FD8 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        margin-top: 80px;
+        margin-bottom: 80px;
+      }
+
+      .page-hero h1 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      /* ========================================
+         CONTAINER & SECTIONS
+         ======================================== */
+      .container {
+        max-width: 1280px;
+        padding: 60px 0;
+        margin-bottom: -80px;
+      }
+      .section-header-wrap {
+        max-width: 1280px;
+        margin: 0 auto 32px auto;
+        padding: 0 20px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 32px;
+        padding: 0;
+      }
+      /* ========================================
+         LEARNING LEVEL CATEGORIES
+         ======================================== */
+      .categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 48px;
+      }
+
+      .category-btn {
+        padding: 12px 24px;
+        background: white;
+        border: 2px solid #E5E5E5;
+        border-radius: 24px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .category-btn:hover {
+        border-color: #5B7CE6;
+        background: #EEF2FF;
+      }
+
+      .category-btn.active {
+        background: #5B7CE6;
+        color: white;
+        border-color: #5B7CE6;
+      }
+      .category-btn.locked {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: #ccc;
+        color: #777;
+        border-color: #aaa;
+      }
+
+      /* ========================================
+         INDUSTRY DROPDOWN
+         ======================================== */
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 300px;
+        padding: 12px 40px 12px 16px;
+        font-size: 16px;
+        background-color: #fff;
+        border: 1px solid  #A9A9A9;
+        border-radius: 20px;
+        color: #A9A9A9;
+        cursor: pointer;
+        outline: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+      }
+      select.active {
+        color: #000;
+      }
+
+      select:focus {
+        border-color: #888;
+      }
+
+      select:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      option {
+        color: #000;
+      }
+      /* ========================================
+         COURSE GRID
+         ======================================== */
+      .courses-grid {
+        display: grid;
+        gap: 24px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      @media (min-width: 1200px) {
+        .courses-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      @media (min-width: 900px) and (max-width: 1199px) {
+        .courses-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 600px) and (max-width: 899px) {
+        .courses-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 599px) {
+        .courses-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* ========================================
+         COURSE CARD
+         ======================================== */
+      .course-card {
+        background: white;
+        border: 1px solid #E5E5E5;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: #1a1a2e;
+        position: relative;
+      }
+
+      .course-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(91,124,230,0.15);
+        border-color: #5B7CE6;
+      }
+      .course-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        padding: 8px;
+        position: relative;
+      }
+      .course-image video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+      .free-trial {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        border: 2px solid white;
+        border-radius: 20px;
+        padding: 4px 10px;
+        font-size: 12px;
+        color: white;
+        background: transparent;
+        font-weight: 600;
+      }
+      .course-content {
+        padding: 20px;
+      }
+      .course-type {
+        display: inline-block;
+        font-size: 12px;
+        color: #5B7CE6;
+        background: #EEF2FF;
+        padding: 6px 12px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+      .course-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .course-specialization {
+        font-size: 14px;
+        color: #666;
+      }
+      /* ========================================
+         ROLES SECTION (COMMENTED FOR FUTURE USE)
+         ======================================== */
+      /*
+      .explore-roles {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      .explore-roles-inner {
+        display: flex;
+        gap: 24px;
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+
+      .explore-left {
+        flex: 0 0 260px;
+        border-radius: 12px;
+        padding: 36px 24px;
+        color: white;
+        background: linear-gradient(180deg, rgba(123,143,247,1) 0%, rgba(91,111,216,1) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 10px 24px rgba(88,118,240,0.15);
+      }
+      .explore-left .icon {
+        font-size: 32px;
+        margin-bottom: 18px;
+        opacity: 0.95;
+      }
+      .explore-left h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .explore-left p {
+        color: rgba(255,255,255,0.95);
+        line-height: 1.4;
+      }
+      .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 18px;
+        flex: 1 1 auto;
+        align-items: stretch;
+      }
+      .role-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 280ms ease, box-shadow 280ms ease;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        background: #0b0b0b;
+      }
+      .role-media {
+        width: 100%;
+        height: 340px;
+        background: #000;
+        display: block;
+        position: relative;
+      }
+      .role-media img, .role-media video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+     .role-title {
+        position: absolute;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+        color: white;
+        font-weight: 700;
+        font-size: 20px;
+        text-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      }
+      .role-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .role-overlay .gradient {
+        width: 56%;
+        max-width: 420px;
+        min-width: 160px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0) 65%);
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: opacity 240ms ease, transform 240ms ease;
+        display: flex;
+        align-items: center;
+        padding-left: 28px;
+        padding-right: 18px;
+      }
+      .role-overlay .desc {
+        color: #fff;
+        font-size: 15px;
+        line-height: 1.45;
+        width: 100%;
+      }
+      .role-card:hover {
+        transform: scale(1.04);
+        box-shadow: 0 20px 40px rgba(8,30,60,0.28);
+        z-index: 5;
+      }
+      .role-card:hover .role-overlay .gradient {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+      @media (max-width: 1000px) {
+        .explore-left {
+          flex: 0 0 220px;
+          padding: 26px;
+        }
+        .role-media {
+          height: 260px;
+        }
+        .role-title {
+          font-size: 18px;
+          bottom: 14px;
+          left: 14px;
+          right: 14px;
+        }
+      }
+      @media (max-width: 760px) {
+        .explore-roles-inner {
+          flex-direction: column;
+        }
+        .explore-left {
+          order: 1;
+          width: 100%;
+          flex: 0 0 auto;
+        }
+        .roles-grid {
+          order: 2;
+          width: 100%;
+          gap: 12px;
+          overflow-x: auto;
+          padding-bottom: 10px;
+        }
+        .role-card {
+          min-width: 280px;
+          flex: 0 0 auto;
+        }
+        .role-media {
+          height: 320px;
+        }
+      }
+      */
+         @media (min-width: 1280px) {
+            select{
+                width: 1900px;
+            }
+         }
+          @media (min-width: 1025px) {
+            select{
+                width: 1200px;
+            }
+          }
+    </style>
+  <!-- JILAN YOU WILL BE EDITING AND ADJUSTING THIS -->
+  <style>
+  .course-image {
+  position: relative;
+  width: 100%;
+  height: 150px; 
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0px 10px;
+  margin-top: 8px;
+}
+.course-image iframe,
+.course-image video {
+  width: 100%;
+  height: 100%; 
+  border-radius: 16px;
+  object-fit: cover; 
+}
+  </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div id="navigation-placeholder"></div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <h1>Discover Learning Experiences</h1>
+      <p>Explore our comprehensive collection of interactive AR/VR courses designed to transform education</p>
+    </section>
+    <!-- Industry Dropdown Section -->
+    <div class="section-header-wrap">
+      <div id="industrySection" style="display:block;">
+        <h2 class="section-title">Industries</h2>
+        <select id="industryDropdown">
+          <option value="" disabled selected>What do you want to learn?</option>
+          <option value="agriculture">Agriculture & Land Management</option>
+          <option value="drone">Drone Technology</option>
+          <option value="education">Education & Development</option>
+          <option value="transport">Insurance Claims Assessor</option>
+          <option value="civil">Built Environment & Construction</option>
+          <option value="mechanical">Mechanical & Automotive Engineering</option>
+          <option value="electrical">Electrical & Energy Systems</option>
+          <option value="carpentry">Metalwork & Fabrication</option>
+          <option value="welding">Welding & Fabrication</option>
+          <option value="safety">Safety, Fire & Emergency Services</option>
+          <option value="manufacturing">Manufacturing & Industrial Operations</option>
+          <option value="mining">Mining & Mineral Processing</option>
+          <option value="water">Water & Wastewater Treatment</option>
+          <option value="maritime">Maritime & Port Operations</option>
+        </select>
+      </div>
+      <!-- Learning Levels -->
+      <div class="container">
+        <h2 class="section-title">Learning Levels</h2>
+        <div class="categories" id="learningLevels">
+          <button class="category-btn active" data-level="highered">ECD</button>
+          <button class="category-btn locked" data-level="primary">Primary School</button>
+          <button class="category-btn" data-level="highschool">High School</button>
+          <button class="category-btn" data-level="highered">Higher Education</button>
+          <button class="category-btn" data-level="vocational">Vocational Training</button>
+        </div>
+      </div>
+    </div>
+    <!-- Popular Courses -->
+    <div class="section-header-wrap">
+      <h2 class="section-title">Popular Courses</h2>
+      <div id="coursesGrid" class="courses-grid"></div>
+    </div>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    <!-- ========================================
+         JAVASCRIPT
+         ======================================== -->
+    <script>
+      // ========================================
+      // DOM REFERENCES
+      // ========================================
+      const learningButtons = document.querySelectorAll('#learningLevels .category-btn');
+      const industrySection = document.getElementById('industrySection');
+      const industryDropdown = document.getElementById('industryDropdown');
+      const coursesGrid = document.getElementById('coursesGrid');
+      // ========================================
+      // COURSE DATA
+      // ========================================      
+      const defaultCourses = [
+        {
+          id: 1,
+          title: 'Animal Production',
+          type: 'Vocational',
+          specialization: 'Learn basic livestock management techniques',
+          video: 'https://player.vimeo.com/video/1145551236?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1"',
+          // video:'https://player.vimeo.com/video/1145524431?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1',
+          videoType: 'vimeo',
+        },
+        {
+          id: 8,
+          title: 'Drone Basics',
+          type: 'Vocational',
+          specialization: 'Explore drone technology applications effectively',
+          video: 'https://player.vimeo.com/video/1145551275?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1',
+          videoType: 'vimeo',
+        },
+        {
+          id: 3,
+          title: 'Soil Science',
+          type: 'Vocational',
+          specialization: 'Understand mechanical systems and operations',
+          video: 'https://player.vimeo.com/video/1145551710?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1',
+          videoType: 'vimeo',
+        },
+        {
+          id: 14,
+          title: 'Freight Logistics',
+          type: 'Vocational',
+          specialization: 'Implement workplace safety and regulations',
+          video: 'https://player.vimeo.com/video/1145551659?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1',
+          videoType: 'vimeo',
+        },
+      ];
+
+      const industryCourses = {
+        agriculture: [
+          { id: 1, title: 'Animal Production', type: 'Vocational', specialization: 'Manage livestock for small farms', video: 'https://player.vimeo.com/video/1145551236?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1"', videoType: 'vimeo' },
+          { id: 2, title: 'Plant Production', type: 'Vocational', specialization: 'Enhance soil health effectively', video: 'https://player.vimeo.com/video/1145551577?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', videoType: 'vimeo' },
+          { id: 3, title: 'Soil Science', type: 'Vocational', specialization: 'Learn farm economics management basics', video: 'https://player.vimeo.com/video/1145551710?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1' , videoType: 'vimeo' },
+          // { title: 'Horticulture', type: 'Vocational', specialization: 'Learn farm economics management basics', video: 'videos/H_culture.mp4'},
+          // { title: 'Greenhouse & Nursery Operations', type: 'Vocational', specialization: 'Learn farm economics management basics', video: 'videos/Green_House.mp4' },
+        ],
+        drone: [
+          { title: 'Drone Basics', type: 'Higher Education', specialization: 'Master drone flight controls quickly', video: 'https://player.vimeo.com/video/1145551275?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', videoType: 'vimeo' },
+        ],
+        education: [
+          { title: 'Early Childhood Development', type: 'Vocational', specialization: 'Design curriculum for young learners', video: 'videos/Early_Childhood_.mp4' },
+          { title: 'Human & Social Development', type: 'Vocational', specialization: 'Enhance instructional design strategies', video: 'videos/Video_Project_8.mp4' },
+        ],
+        transport: [
+          { title: 'Freight Logistics', type: 'Vocational', specialization: 'Manage fleet operations efficiently', video: 'https://player.vimeo.com/video/1145551659?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', videoType: 'vimeo' },
+          {   id: 15,title: 'Insurance Claims Assessor', type: 'Vocational', specialization: 'Understand distribution and logistics basics', video: 'videos/Claims_assessor.mp4' },
+        ],
+        civil: [
+          { title: 'Carpentry and Roof Work', type: 'Vocational', specialization: 'Learn foundational construction techniques', video: 'videos/RoofConstruction.mp4' },
+          { title: 'Concrete Structures', type: 'Vocational', specialization: 'Plan infrastructure with accuracy', video: 'videos/GableRoofTruss.mp4' },
+          { title: 'Construction Planning', type: 'Vocational', specialization: 'Estimate construction projects efficiently', video: 'videos/RoofBracingandReinforcement.mp4' },
+          { title: 'Masonry', type: 'Vocational', specialization: 'Estimate construction projects efficiently', video: 'videos/MeasuringSettingOut&Levellinganimation.mp4' },
+          { title: 'Plumbing', type: 'Vocational', specialization: 'Estimate construction projects efficiently', video: 'videos/plumbing_1.mp4' },
+        ],
+        mechanical: [
+          { id: 48, title: 'Motor Mechanics', type: 'Higher Education', specialization: 'Understand basic vehicle systems', video: 'videos/Motor_Mechanics.mp4' },
+          { id: 47, title: 'Diesel Mechanics', type: 'Higher Education', specialization: 'Analyze and maintain engines correctly', video: 'videos/Diesel_Mechanics.mp4' },
+          { id: 46, title: 'Fitting & Machining', type: 'Higher Education', specialization: 'Learn advanced robotics applications', video: 'videos/Fitting__Machining.mp4' },
+          { id: 45, title: 'Hydraulics & Pneumatics', type: 'Higher Education', specialization: 'Learn advanced robotics applications', video: 'videos/Hydraulics.mp4' },
+        ],
+        electrical: [
+          { id: 44, title: 'Household Electrical Installation', type: 'Higher Education', specialization: 'Learn electrical circuit fundamentals', video: 'videos/Household_Electrical_Installation.mp4' },
+          { id: 44, title: 'Industrial Electrical Systems', type: 'Higher Education', specialization: 'Understand wiring safety procedures', video: 'videos/Industrial_Electrical_Systems.mp4' },
+          { id: 43, title: 'Solar PV Installation', type: 'Higher Education', specialization: 'Explore grid and transmission basics', video: 'videos/Solar_PV_Installation.mp4' },
+          { id: 42, title: 'Energy Storage & Distribution', type: 'Higher Education', specialization: 'Explore grid and transmission basics', video: 'videos/Energy_Storage__Distribution.mp4' },
+          { id: 9, title: 'Wiring & Circuit Systems', type: 'Higher Education', specialization: 'Explore grid and transmission basics', video: 'videos/Wiring__Circuit_Systems.mp4' },
+        ],
+        carpentry: [
+          { id: 10, title: 'Welding (ARC, MIG, TIG)', type: 'Higher Education', specialization: 'Master furniture construction techniques', video: 'videos/Welding_ARC_MIG_TIG.mp4' },
+          { id: 11, title: 'Boilermaking', type: 'Higher Education', specialization: 'Learn precise joinery craftsmanship', video: 'videos/Boilermaking.mp4' },
+          { id: 16, title: 'Fabrication Layout', type: 'Higher Education', specialization: 'Apply finishing techniques professionally', video: 'videos/Fabrication_Layout.mp4' },
+          { id: 17, title: 'Steel Structure Assembly', type: 'Higher Education', specialization: 'Apply finishing techniques professionally', video: 'videos/Steel_Structure_Assembly.mp4' },
+        ],
+        welding: [
+          { id: 18, title: 'Welding Fundamentals', type: 'Higher Education', specialization: 'Join metals with proper techniques', video: 'videos/Welding_Fundamentals.mp4' },
+          { id: 19, title: 'Fabrication Techniques', type: 'Higher Education', specialization: 'Work with sheet metals safely', video: 'videos/Fabrication_Techniques.mp4' },
+          { id: 20, title: 'Industrial Welding Safety', type: 'Higher Education', specialization: 'Follow protective welding protocols', video: 'videos/Industrial_Welding_Safety.mp4' },
+        ],
+        safety: [
+          { id: 21, title: 'First Aid', type: 'High School', specialization: 'Implement workplace safety procedures', video: 'videos/First_Aid.mp4' },
+          { id: 22, title: 'Basic Firefighting', type: 'High School', specialization: 'Prepare for disaster situations effectively', video: 'videos/Basic_Firefighting.mp4' },
+          { id: 23, title: 'OHS (Occupational Safety)', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Occupational_Health_and_Safety.mp4' },
+          { id: 24, title: 'Hazard Detection', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Hazard_Detection.mp4' },
+          { id: 25, title: 'Risk Management', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Risk_Management.mp4' },
+        ],
+        manufacturing: [
+          { id: 26, title: 'Assembly Line Processes', type: 'High School', specialization: 'Implement workplace safety procedures', video: 'videos/Assembly_Line_Processes.mp4' },
+          { id: 27, title: 'Manufacturing Systems', type: 'High School', specialization: 'Prepare for disaster situations effectively', video: 'videos/Manufacturing_Systems.mp4' },
+          { id: 28, title: 'Quality Control & Inspection', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Quality_Control__Inspection.mp4' },
+          { id: 29, title: 'Machine Operation Basics', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Machine_Operation_Basics.mp4' },
+        ],
+        mining: [
+          { id: 30, title: 'Plant Equipment Handling', type: 'High School', specialization: 'Implement workplace safety procedures', video: 'videos/Plant_Equipment_Handling.mp4' },
+          { id: 31, title: 'Drilling Support Skills', type: 'High School', specialization: 'Prepare for disaster situations effectively', video: 'videos/Drilling_Support_Skills.mp4' },
+          { id: 32, title: 'Material Crushing & Screening', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Material_Crushing__Screening.mp4' },
+          { id: 33, title: 'Conveyor Belt Systems', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Conveyor_Belt_Systems.mp4' },
+        ],
+        water: [
+          { id: 34, title: 'Water Purification Systems', type: 'High School', specialization: 'Implement workplace safety procedures', video: 'videos/Water_Purification_Systems.mp4' },
+          { id: 35, title: 'Pump & Valve Operation', type: 'High School', specialization: 'Prepare for disaster situations effectively', video: 'videos/Pump__Valve_Operation.mp4' },
+          { id: 36, title: 'Plant Monitoring', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Plant_Monitoring.mp4' },
+          { id: 37, title: 'Chlorination & Filtration Stages', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Chlorination__Filtration_Stages.mp4' },
+        ],
+        maritime: [
+          { id: 38, title: 'Shipboard Safety', type: 'High School', specialization: 'Implement workplace safety procedures', video: 'videos/Shipboard_Safety.mp4' },
+          { id: 39, title: 'Cargo Handling', type: 'High School', specialization: 'Prepare for disaster situations effectively', video: 'videos/Cargo_Handling.mp4' },
+          { id: 40, title: 'Marine Engine Room Basics', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Marine_Engine_Room_Basics.mp4' },
+          { id: 41, title: 'Port Crane Operations', type: 'High School', specialization: 'Conduct safety inspections accurately', video: 'videos/Port_Crane_Operations.mp4' },
+        ],
+      };
+
+      // ========================================
+      // LEVEL TO INDUSTRY MAPPING
+      // ========================================
+      const vocationalOnly = ['agriculture', 'civil', 'education', 'transport'];
+      const allIndustries = Array.from(industryDropdown.options).map(o => o.value).filter(v => v);
+      const remaining = allIndustries.filter(i => !vocationalOnly.includes(i));
+      const splitIndex = Math.ceil(remaining.length / 2);
+      const higherEdList = remaining.slice(0, splitIndex);
+      const highSchoolList = remaining.slice(splitIndex);
+
+      // ========================================
+      // RENDER COURSES FUNCTION
+      // ========================================
+      function renderCourses(courses) {
+        if (!coursesGrid) {
+          console.error("coursesGrid NOT FOUND in HTML");
+          return;
+        }
+
+        if (!Array.isArray(courses)) {
+          courses = Object.entries(courses).map(([key, val]) => ({
+            ...(val || {}),
+            id: val.id ?? Number(key)
+          }));
+        } else {
+          courses = courses.map((c, i) => ({ ...(c || {}), id: c.id ?? i + 1 }));
+        }
+
+        coursesGrid.innerHTML = "";
+
+        // courses.forEach(course => {
+        //   const card = document.createElement('a');
+        //   card.className = 'course-card';
+        //   card.href = `overviewpage.html?id=${course.id}`;
+
+        //   card.innerHTML = `
+        //     <div class="course-image">
+        //       <video autoplay muted loop playsinline preload="auto" src="${course.video || ''}"></video>
+        //       <span class="free-trial">Free trial</span>
+        //     </div>
+        //     <div class="course-content">
+        //       <div class="course-type">${course.type || ""}</div>
+        //       <div class="course-title">${course.title || ""}</div>
+        //       <div class="course-specialization">${course.specialization || ""}</div>
+        //     </div>
+        //   `;
+
+        //   coursesGrid.appendChild(card);
+        // });
+
+  courses.forEach(course => {
+  const card = document.createElement('a');
+  card.className = 'course-card';
+  card.href = `overviewpage.html?id=${course.id}`;
+
+  let mediaHTML = "";
+
+  if (course.videoType === "mp4" || !course.videoType) {
+    // default to mp4 for backward compatibility
+    mediaHTML = `
+      <video autoplay muted loop playsinline preload="auto" src="${course.video}"></video>
+    `;
+  }
+
+  if (course.videoType === "vimeo") {
+    mediaHTML = `
+      <iframe 
+        src="${course.video}" 
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </iframe>
+    `;
+  }
+  card.innerHTML = `
+    <div class="course-image">
+      ${mediaHTML}
+      <span class="free-trial">Free trial</span>
+    </div>
+
+    <div class="course-content">
+      <div class="course-type">${course.type || ""}</div>
+      <div class="course-title">${course.title || ""}</div>
+      <div class="course-specialization">${course.specialization || ""}</div>
+    </div>
+  `;
+  coursesGrid.appendChild(card);
+});
+      }
+
+      // ========================================
+      // SET INDUSTRY AVAILABILITY
+      // ========================================
+      function setIndustryAvailability(level) {
+        let allowed = [];
+        if (level === 'vocational') allowed = vocationalOnly;
+        else if (level === 'highered') allowed = higherEdList;
+        else if (level === 'highschool') allowed = highSchoolList;
+        Array.from(industryDropdown.options).forEach(opt => {
+          if (opt.value === '') return;
+          if (allowed.includes(opt.value)) {
+            opt.disabled = false;
+            opt.style.opacity = '1';
+          } else {
+            opt.disabled = true;
+            opt.style.opacity = '0.55';
+          }
+        });
+
+        industryDropdown.value = '';
+        industryDropdown.disabled = false;
+      }
+      // ========================================
+      // EVENT LISTENERS
+      // ========================================
+      learningButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('locked')) return;
+
+          learningButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          if (btn.dataset.level !== 'primary') {
+            industrySection.style.display = 'block';
+            industryDropdown.disabled = false;
+            renderCourses(defaultCourses);
+            setIndustryAvailability(btn.getAttribute('data-level'));
+          } else {
+            industrySection.style.display = 'none';
+            industryDropdown.disabled = true;
+            renderCourses(defaultCourses.filter(c => c.specialization === "Primary"));
+          }
+        });
+      });
+
+      industryDropdown.addEventListener('change', () => {
+        const selected = industryDropdown.value;
+        if (!selected) return;
+
+        if (industryCourses[selected]) {
+          renderCourses(industryCourses[selected]);
+        } else {
+          renderCourses(defaultCourses);
+        }
+        industryDropdown.classList.add('active');
+      });
+
+      // ========================================
+      // INITIALIZE
+      // ========================================
+      renderCourses(defaultCourses);
+
+      // Load navigation
+      fetch('navigation.html')
+        .then(r => r.text())
+        .then(data => {
+          document.getElementById('navigation-placeholder').innerHTML = data;
+          Array.from(document.getElementById('navigation-placeholder').getElementsByTagName('script')).forEach(s => eval(s.innerHTML));
+        })
+        .catch(e => console.error(e));
+
+      // Load footer
+      fetch('footer.html')
+        .then(r => r.text())
+        .then(data => {
+          const target = document.getElementById('footer-placeholder');
+          if (target) target.innerHTML = data;
+        })
+        .catch(e => console.error(e));
+      /* ========================================
+         ROLES SECTION (COMMENTED FOR FUTURE USE)
+         ======================================== */
+      /*
+      const exploreRolesContainer = document.getElementById('exploreRolesContainer');
+      const rolesGrid = document.getElementById('rolesGrid');
+
+      const exploreRoles = {
+        agriculture: [
+          { title: 'Farmer', description: 'Oversees farm operations, crops and livestock management.', image: 'images/farmer.jpeg' },
+          { title: 'Horticulturist', description: 'Specializes in growing fruits, vegetables, flowers, or ornamental plants.', image: 'images/h.jpeg' },
+          { title: 'Agricultural Technician', description: 'Supports farmers with soil testing and crop management.', image: 'images/agritech.jpeg' },
+          { title: 'Land Manager', description: 'Focuses on sustainable land use and soil health.', image: 'images/landmanager.jpeg' }
+        ],
+        drone: [
+          { title: 'Drone Pilot', description: 'Operates drones for surveying and inspections.', image: 'images/placeholder-drone-1.jpg' }
+        ],
+        education: [
+          { title: 'Curriculum Developer', description: 'Designs learning materials and assessments.', image: 'images/placeholder-education-1.jpg' },
+          { title: 'Training Facilitator', description: 'Delivers interactive workshops.', image: 'images/placeholder-education-2.jpg' },
+          { title: 'Instructional Designer', description: 'Creates engaging digital learning experiences.', image: 'images/placeholder-education-3.jpg' },
+          { title: 'Education Coordinator', description: 'Manages programs and learner support.', image: 'images/placeholder-education-4.jpg' }
+        ],
+        safety: [
+          { title: 'Fire Fighter', description: 'Responds to fires and emergency incidents.', image: 'images/firefighter.jpeg' },
+          { title: 'Occupational Health Officer', description: 'Monitors workplace safety compliance.', image: 'images/ohofficer.jpeg' },
+          { title: 'Risk Analyst', description: 'Assesses hazards and develops mitigation plans.', image: 'images/riskanalyst.jpeg' },
+          { title: 'Emergency Response Coordinator', description: 'Plans emergency preparedness activities.', image: 'images/ercoodinator.jpeg' }
+        ]
+      };
+
+      function renderExploreRoles(industryKey) {
+        const roles = (exploreRoles[industryKey] || []).slice(0, 4);
+        if (!roles || roles.length === 0) {
+          exploreRolesContainer.style.display = 'none';
+          return;
+        }
+
+        rolesGrid.innerHTML = roles.map((r, idx) => {
+          const title = r.title || 'Role';
+          const desc = r.description || 'Learn about this role.';
+          const img = r.image || 'images/placeholder-generic.jpg';
+          return `
+            <div class="role-card" data-role-index="${idx}">
+              <div class="role-media">
+                <img src="${img}" alt="${title}" />
+                <div class="role-title">${title}</div>
+                <div class="role-overlay">
+                  <div class="gradient"><div class="desc">${desc}</div></div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        exploreRolesContainer.style.display = 'block';
+
+        rolesGrid.querySelectorAll('.role-card').forEach(card => {
+          card.addEventListener('click', () => {
+            if (card.classList.contains('tapped')) {
+              card.classList.remove('tapped');
+            } else {
+              rolesGrid.querySelectorAll('.role-card').forEach(c => c.classList.remove('tapped'));
+              card.classList.add('tapped');
+            }
+          });
+        });
+      }
+      */
+    </script>
+  </body>
+</html>
