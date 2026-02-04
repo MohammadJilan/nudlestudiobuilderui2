@@ -1,0 +1,823 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+    <title>Nexera — Empowering Educators with AI & XR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-blue: #5B7CE6;
+        --dark-blue: #4A63C1;
+        --light-blue: #EEF2FF;
+        --accent-yellow: #FFC107;
+        --text-dark: #1a1a2e;
+        --text-gray: #666666;
+        --border-color: #E5E5E5;
+        --white: #FFFFFF;
+      }
+      body {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: #F9FAFB;
+      }
+      .page-hero {
+        background: linear-gradient(135deg, #7B8FF7 0%, #5B6FD8 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        margin-top: 80px;
+        margin-bottom: 60px;
+      }
+      .page-hero h1 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .page-hero p {
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.95;
+      }
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 32px;
+        color: var(--text-dark);
+      }
+      .categories {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 48px;
+      }
+      .category-btn {
+        padding: 12px 24px;
+        background: var(--white);
+        border: 2px solid var(--border-color);
+        border-radius: 24px;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .category-btn:hover {
+        border-color: var(--primary-blue);
+        background: var(--light-blue);
+      }
+      .category-btn.active {
+        background: var(--primary-blue);
+        color: var(--white);
+        border-color: var(--primary-blue);
+      }
+      .category-btn.locked {
+        background-color: #ccc;
+        color: #777;
+        border-color: #aaa;
+        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+      .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-bottom: 40px;
+        align-items: stretch;
+      }
+      .course-card {
+        display: block;
+        background: var(--white);
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        color: var(--text-dark);
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+      .course-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(91, 124, 230, 0.14);
+        border-color: var(--primary-blue);
+      }
+      .course-card:focus,
+      .course-card:focus-visible {
+        outline: 3px solid rgba(91, 124, 230, 0.12);
+        outline-offset: 2px;
+      }
+      .course-image {
+        position: relative;
+        width: calc(100% - 24px);
+        height: 220px;
+        margin: 12px auto 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .course-image img,
+      .course-image video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 12px;
+      }
+      .free-trial-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: transparent;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8ef;
+        z-index: 6;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .course-content {
+        padding: 20px 22px;
+      }
+      .course-type {
+        display: inline-block;
+        background: var(--light-blue);
+        color: var(--dark-blue);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      .course-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 6px 0 0 0;
+        color: var(--text-dark);
+        line-height: 1.25;
+      }
+      .course-specialization {
+        font-size: 14px;
+        color: #666;
+      }
+      @media (max-width: 768px) {
+        .page-hero h1 {
+          font-size: 32px;
+        }
+        .courses-grid {
+          grid-template-columns: 1fr;
+        }
+        .categories {
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          padding-bottom: 8px;
+        }
+        .category-btn {
+          white-space: nowrap;
+        }
+        .course-image {
+          height: 180px;
+        }
+        .course-content {
+          padding: 16px;
+        }
+        .course-title {
+          font-size: 16px;
+        }
+      }
+      /* ============================================
+         ROLES CSS - COMMENTED OUT FOR FUTURE USE FOR DUREN
+         ============================================ */
+      /*
+      .explore-roles {
+        margin-top: 40px;
+      }
+      .explore-roles-inner {
+        display: flex;
+        gap: 24px;
+        flex-wrap: nowrap;
+        align-items: stretch;
+      }
+      .explore-left {
+        flex: 0 0 300px;
+        min-width: 300px;
+        background: var(--light-blue);
+        padding: 24px;
+        border-radius: 12px;
+      }
+      .explore-left .icon {
+        font-size: 32px;
+        color: var(--primary-blue);
+        margin-bottom: 16px;
+      }
+      .explore-left h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .explore-left p {
+        color: var(--text-gray);
+        line-height: 1.6;
+      }
+      .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        flex: 1 1 auto;
+      }
+      .role-card {
+        background: var(--white);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+      .role-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(91, 124, 230, 0.15);
+        border-color: var(--primary-blue);
+      }
+      .role-card h4 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .role-card p {
+        font-size: 14px;
+        color: var(--text-gray);
+      }
+      */
+    </style>
+    <style>
+  .course-image {
+  position: relative;
+  width: 100%;
+  height: 150px; 
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0px 10px;
+  margin-top: 8px;
+}
+
+.course-image iframe,
+.course-image video {
+  width: 100%;
+  height: 100%; 
+  border-radius: 16px;
+  object-fit: cover; 
+}
+/* Industries Styling */
+/* ========================================
+         INDUSTRY DROPDOWN
+         ======================================== */
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 300px;
+        padding: 12px 40px 12px 16px;
+        font-size: 16px;
+        background-color: #fff;
+        border: 1px solid  #A9A9A9;
+        border-radius: 20px;
+        color: #A9A9A9;
+        cursor: pointer;
+        outline: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+      }
+
+      select.active {
+        color: #000;
+      }
+      select:focus {
+        border-color: #888;
+      }
+      select:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      option {
+        color: #000;
+      }
+      .section-header-wrap {
+        max-width: 1280px;
+        margin: 0 auto 32px auto;
+        padding: 10px 20px; 
+      }
+
+#industryDropdown {
+  width: 1280px;
+  max-width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+     /*  VIEW COURSE BUTTON */
+      .view-course-btn {
+        display: inline-block;
+        padding: 10px 78px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        background: linear-gradient(135deg, #5B7CE6, #7B8FF7);
+        color: white;
+        box-shadow:
+          0 6px 0 #4A63C1,
+          0 10px 22px rgba(91,124,230,0.45);
+        transition: all 0.2s ease;
+        margin-top: 20px;
+        margin-bottom: 0;
+        align-self: stretch;
+      }
+
+      .course-card:hover .view-course-btn {
+        transform: translateY(-2px);
+        box-shadow:
+          0 8px 0 #4A63C1,
+          0 14px 30px rgba(91,124,230,0.6);
+      }
+           /* 🌈 EARN XP RAINBOW BUTTON */
+      .category-btn.more-colours {
+        border: none;
+        color: white;
+        font-weight: 700;
+        background: linear-gradient(
+          270deg,
+          #ff0080,
+          #ff8c00,
+          #40e0d0,
+          #8a2be2,
+          #ff0080
+        );
+        background-size: 600% 600%;
+        animation: rainbowShift 6s ease infinite;
+        box-shadow: 0 0 18px rgba(255, 0, 200, 0.45);
+      }
+      @keyframes rainbowShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+       /* 🔰 DIFFICULTY PILL */
+    .difficulty-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      /* background: #f3f4f6; */
+      color: #374151;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+
+        display: inline-block;
+        background: var(--light-blue);
+        color: var(--dark-blue);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .difficulty-icon {
+      width: 14px;
+      height: 14px;
+      background: #22c55e;
+      border-radius: 4px;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    }
+    </style>
+  </head>
+  <body>
+    <div id="navigation-placeholder"></div>
+
+    <section class="page-hero">
+      <h1 id="heroTitle">Discover Learning Experiences</h1>
+      <p id="heroDescription">Explore our comprehensive collection of interactive AR/VR courses designed to transform education</p>
+    </section>
+
+    <!-- Industry Dropdown Section -->
+    <div class="section-header-wrap">
+      <div id="industrySection" style="display:block;">
+        <h2 class="section-title">Industries</h2>
+        <select id="industryDropdown">
+          <option value="" disabled selected>What do you want to learn?</option>
+          <option value="agriculture">Agriculture and Environmental Studies</option>
+          <option value="drone">Drone Technology</option>
+          <option value="education">Education & Development</option>
+          <option value="transport">Transport & Logistics</option>
+          <option value="civil">Built Environment & Construction</option>
+          <option value="mechanical">Mechanical & Automotive Engineering</option>
+          <option value="electrical">Electrical & Energy Systems</option>
+          <option value="carpentry">Metalwork & Fabrication</option>
+          <option value="welding">Welding & Fabrication</option>
+          <option value="safety">Safety, Fire & Emergency Services</option>
+          <option value="manufacturing">Manufacturing & Industrial Operations</option>
+          <option value="mining">Mining & Mineral Processing</option>
+          <option value="water">Water & Wastewater Treatment</option>
+          <option value="maritime">Maritime & Port Operations</option>
+        </select>
+      </div>
+      </div>
+
+    <div class="container" style="margin-top: -20px;">
+      <h2 class="section-title">Learning Levels</h2>
+      <div class="categories">
+        <button class="category-btn active" onclick="filterByCategory('all')">ECD</button>
+        <button class="category-btn locked" onclick="filterByCategory('early-childhood')">Primary School (Grade: 1-7)</button>
+        <button class="category-btn" onclick="filterByCategory('k12')">High School (Grade: 8-12)</button>
+        <button class="category-btn" onclick="filterByCategory('higher-education')">Higher Education</button>
+        <button class="category-btn" onclick="filterByCategory('vocational')">Vocational Training</button>
+         <button class="category-btn more-colours">Skills Tree</button>
+      </div>
+      <h2 class="section-title">Popular Courses</h2>
+      <div class="courses-grid" id="coursesGrid"></div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+      const coursesData = {
+        'agriculture': {
+          title: 'Agriculture',
+          description: 'Learn modern agricultural techniques with immersive AR technology',
+          courses: [
+            // { id: 1, title: 'Animal Production', video: 'https://player.vimeo.com/video/1145551236?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational',  difficulty: 'beginner', type: 'vimeo', poster: 'images/goat-preview.jpg', specialization: 'Learn basic livestock management techniques' },
+              { id: 1, title: 'Animal Production', video: 'images/GoatSkeleton.mp4', category: 'vocational',  difficulty: 'beginner', type: 'vimeo', poster: 'images/goat-preview.jpg', specialization: 'Learn basic livestock management techniques' },
+            // { id: 2, title: 'Crop Production ', video: 'https://player.vimeo.com/video/1145551577?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational', type: 'vimeo', specialization: 'Understand mechanical systems and operations' },
+
+               { id: 2, title: 'Crop Production ', video: 'images/PlantReproduction.mp4', category: 'vocational', difficulty: 'beginner', type: 'vimeo', specialization: 'Understanding the operations of crop production' },
+
+            // { id: 3, title: 'Agricultural Machinery ', video: 'https://player.vimeo.com/video/1145551710?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational', type: 'vimeo', specialization: 'Understand mechanical systems and operations' },
+
+             { id: 3, title: 'Agricultural Machinery ', video: 'images/Plant_Equipment_Handling.mp4', category: 'vocational', type: 'vimeo', specialization: 'Understand the systems of Agricultural Machinery', difficulty: 'beginner', },
+
+            // { id: 4, title: 'Environmental Management ', video: 'https://player.vimeo.com/video/1145551710?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational', type: 'vimeo', specialization: 'Understand mechanical systems and operations' },
+
+             { id: 4, title: 'Environmental Management ', video: 'images/Plant_Monitoring.mp4', category: 'vocational', type: 'vimeo', specialization: 'Understand Environmental Management Principles', difficulty: 'beginner', },
+
+            // { id: 5, title: 'Greenhouse and Nursery Operations ', video: 'https://player.vimeo.com/video/1145551710?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational', type: 'vimeo', specialization: 'Understand mechanical systems and operations' }
+
+              { id: 5, title: 'Greenhouse and Nursery Operations ', video: 'images/Green_House.mp4', category: 'vocational', type: 'vimeo', specialization: 'Understand Greenhouse and Nusery Operations', difficulty: 'beginner', }
+          ]
+        },
+        'civil-construction': {
+          title: 'Civil & Construction',
+          description: 'Identify and use basic carpentry tools, machines, and equipment safely.',
+          courses: [
+            { id: 4, title: 'Carpentry & Roofwork', video: 'Lesson3_RoofBracingandReinforcement.mkv', category: 'vocational', type: 'video' },
+            { id: 5, title: 'Concrete Structures', video: 'videos/RoofConstruction.mp4', category: 'vocational', type: 'video' },
+            { id: 6, title: 'Construction Planning', video: 'Measuring, Setting Out & Levelling animation.mkv', category: 'vocational', type: 'video' },
+            { id: 7, title: 'Masonry', video: 'videos/MeasuringSettingOut&Levellinganimation.mp4', category: 'vocational', type: 'video' }
+          ]
+        },
+        'drone-tech': {
+          title: 'Drone Technology',
+          description: 'Explore the future of aviation with hands-on drone piloting and technology',
+          courses: [
+            { id: 8, title: 'Drone Basics', video: 'https://player.vimeo.com/video/1145551275?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'k12', type: 'vimeo', specialization: 'Explore drone technology applications effectively' }
+          ]
+        },
+        'education-development': {
+          title: 'Education and Development',
+          description: 'Master Education and Development through interactive 3D simulations',
+          courses: [
+            { id: 12, title: 'Early Childhood Development', video: 'videos/Early_Childhood_.mp4', category: 'vocational', type: 'video' },
+            { id: 13, title: 'Human and Social Development', video: 'videos/Video_Project_8.mp4', category: 'vocational', type: 'video' }
+          ]
+        },
+        'transport-logistics': {
+          title: 'Transport and Logistics',
+          description: 'Master Transport and Logistics through interactive 3D simulations',
+          courses: [
+            { id: 14, title: 'Freight Logistics', video: 'https://player.vimeo.com/video/1145551659?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&muted=1&background=1', category: 'vocational', type: 'vimeo' },
+            { id: 15, title: 'Insurance Claims Administrator', video: 'videos/Claims_assessor.mp4', category: 'vocational', type: 'video' }
+          ]
+        },
+        'all': {
+          title: 'All Industries',
+          description: 'Explore our comprehensive collection of interactive AR/VR courses',
+          courses: []
+        }
+      };
+
+      let currentCategory = 'all';
+      let currentIndustry = 'all';
+      let currentLevel = 'all';
+
+function getURLParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name) || 'all';
+}
+
+function initializePage() {
+  currentIndustry = getURLParameter('industry');
+
+  if (currentIndustry !== 'all' && coursesData[currentIndustry]) {
+    document.getElementById('heroTitle').textContent = coursesData[currentIndustry].title;
+    document.getElementById('heroDescription').textContent = coursesData[currentIndustry].description;
+  }
+
+  if (currentIndustry === 'all') {
+    coursesData.all.courses = [];
+    Object.keys(coursesData).forEach(key => {
+      if (key !== 'all') {
+        coursesData.all.courses = coursesData.all.courses.concat(coursesData[key].courses);
+      }
+    });
+  }
+
+  renderCourses();
+}
+
+function filterByCategory(category) {
+  currentCategory = category;
+  document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  renderCourses();
+}
+function renderCourses() {
+  const coursesGrid = document.getElementById('coursesGrid');
+  const courses = coursesData[currentIndustry]?.courses || [];
+
+  const filteredCourses = currentCategory === 'all'
+    ? courses
+    : courses.filter(course => course.category === currentCategory);
+    
+
+  if (filteredCourses.length === 0) {
+    coursesGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-gray); padding: 40px;">
+        No courses found for this category.
+      </p>`;
+    return;
+  }
+  coursesGrid.innerHTML = filteredCourses.map(course => `
+    <a href="module.html?course=${course.id}&industry=${currentIndustry}" class="course-card">
+      <div class="course-image">
+        <span class="free-trial-badge">Free trial</span>
+        ${
+          course.type === 'vimeo'
+            ? `<iframe 
+                 src="${course.video}" 
+                 width="100%" 
+                 height="200" 
+                 frameborder="0" 
+                 allow="autoplay; fullscreen; picture-in-picture" 
+                 allowfullscreen
+                 style="border-radius:10px;">
+               </iframe>`
+            : `<video src="${course.video}" autoplay loop muted playsinline style="width:100%; height:200px; object-fit:cover; border-radius:10px;"></video>`
+        }
+      </div>
+      <div class="course-content">
+        <span class="course-type">${course.category.replace('-', ' ')}</span>
+        <h3 class="course-title">${course.title}</h3>
+        ${course.specialization ? `<div class="course-specialization">${course.specialization}</div>` : ''}
+          <span class="view-course-btn">View Course</span>
+      </div>
+    </a>
+  `).join('');
+}
+initializePage();
+
+function renderCourses() {
+  const coursesGrid = document.getElementById('coursesGrid');
+  const courses = coursesData[currentIndustry]?.courses || [];
+
+  const filteredCourses = courses.filter(course => {
+    const matchesCategory =
+      currentCategory === 'all' || course.category === currentCategory;
+
+    const matchesDifficulty =
+      currentLevel === 'all' || course.difficulty === currentLevel;
+
+    return matchesCategory && matchesDifficulty;
+  });
+
+  if (filteredCourses.length === 0) {
+    coursesGrid.innerHTML = `
+      <p style="grid-column: 1/-1; text-align:center; color:var(--text-gray); padding:40px;">
+        No courses found.
+      </p>`;
+    return;
+  }
+
+  // coursesGrid.innerHTML = filteredCourses.map(course => `
+  //   <a href="module.html?course=${course.id}&industry=${currentIndustry}" class="course-card">
+  //     <div class="course-image">
+  //       <span class="free-trial-badge">Free trial</span>
+
+  //       ${
+  //         course.type === 'vimeo'
+  //           ? `<iframe src="${course.video}"
+  //               width="100%" height="200"
+  //               frameborder="0"
+  //               allow="autoplay; fullscreen; picture-in-picture"
+  //               allowfullscreen
+  //               style="border-radius:10px;"></iframe>`
+  //           : `<video src="${course.video}" autoplay loop muted playsinline
+  //               style="width:100%; height:200px; object-fit:cover; border-radius:10px;"></video>`
+  //       }
+  //     </div>
+
+  //     <div class="course-content">
+  //         <div class="difficulty-pill">
+  //         <span class="difficulty-icon"></span>
+  //         ${course.difficulty}
+  //       </div>
+  //       <span class="course-type">${course.category.replace('-', ' ')}</span>
+  //       <h3 class="course-title">${course.title}</h3>
+  //       ${course.specialization ? `<div class="course-specialization">${course.specialization}</div>` : ''}
+  //       <span class="view-course-btn">View Course</span>
+  //     </div>
+  //   </a>
+  // `).join('');
+
+// REMEMBER TO TAKE THIS OUT LATER
+    coursesGrid.innerHTML = filteredCourses.map(course => `
+    <a href="module.html?course=${course.id}&industry=${currentIndustry}" class="course-card">
+      <div class="course-image">
+        <span class="free-trial-badge">Free trial</span>
+
+   ${
+  course.video.includes('player.vimeo.com')
+    ? `<iframe 
+        src="${course.video}"
+        width="100%" 
+        height="200"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        style="border-radius:10px;">
+      </iframe>`
+    : `<video 
+        class="course-video"
+        data-src="${course.video}"
+        muted
+        playsinline
+        preload="auto"
+        style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+      </video>`
+}
+
+      </div>
+
+      <div class="course-content">
+          <div class="difficulty-pill">
+          <span class="difficulty-icon"></span>
+          ${course.difficulty}
+        </div>
+        <span class="course-type">${course.category.replace('-', ' ')}</span>
+        <h3 class="course-title">${course.title}</h3>
+        ${course.specialization ? `<div class="course-specialization">${course.specialization}</div>` : ''}
+        <span class="view-course-btn">View Course</span>
+      </div>
+    </a>
+  `).join('');
+
+  // Force autoplay + loop for all course videos (iOS + Windows)
+setTimeout(() => {
+  document.querySelectorAll('.course-video').forEach(video => {
+    playCourseVideo(video, video.dataset.src);
+  });
+}, 50);
+
+}
+
+      /* ============================================
+         ROLES JAVASCRIPT - COMMENTED OUT FOR FUTURE USE FOR DUREN
+         ============================================ */
+      /*
+      function loadRolesForIndustry(industry) {
+        const rolesData = {
+          'agriculture': [
+            { title: 'Farm Manager', description: 'Oversee farm operations' },
+            { title: 'Agronomist', description: 'Soil and crop specialist' },
+            { title: 'Livestock Manager', description: 'Animal care expert' },
+            { title: 'Agricultural Technician', description: 'Equipment specialist' }
+          ],
+          'civil-construction': [
+            { title: 'Site Manager', description: 'Construction oversight' },
+            { title: 'Structural Engineer', description: 'Building design' },
+            { title: 'Quantity Surveyor', description: 'Cost management' },
+            { title: 'Safety Officer', description: 'Site safety' }
+          ]
+        };
+
+        const roles = rolesData[industry] || [];
+        const rolesGrid = document.getElementById('rolesGrid');
+
+        rolesGrid.innerHTML = roles.map(role => `
+          <div class="role-card">
+            <h4>${role.title}</h4>
+            <p>${role.description}</p>
+          </div>
+        `).join('');
+      }
+
+      function showRolesSection(industry) {
+        const container = document.getElementById('exploreRolesContainer');
+        if (container) {
+          container.style.display = 'block';
+          loadRolesForIndustry(industry);
+        }
+      }
+      */
+      fetch('navigation.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navigation-placeholder').innerHTML = data;
+          const scripts = document.getElementById('navigation-placeholder').getElementsByTagName('script');
+          for (let script of scripts) {
+            eval(script.innerHTML);
+          }
+        })
+        .catch(error => console.error('Error loading navigation:', error));
+
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+
+      initializePage();
+    </script>
+    <script>
+      if (course.type === "vimeo") {
+  return `
+    <iframe 
+      src="${course.video}"
+      width="100%"
+      height="200"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  `;
+}
+    </script>
+    <script>
+      function playCourseVideo(videoElement, videoSrc) {
+  if (!videoElement || !videoSrc) return;
+
+  // Required for iOS + autoplay
+  videoElement.muted = true;
+  videoElement.autoplay = true;
+  videoElement.loop = true;
+  videoElement.playsInline = true;
+  videoElement.setAttribute('playsinline', '');
+  videoElement.setAttribute('muted', '');
+
+  // Set source
+  videoElement.src = videoSrc;
+
+  // Force playback (iOS needs this)
+  const attemptPlay = videoElement.play();
+
+  if (attemptPlay !== undefined) {
+    attemptPlay.catch(() => {
+      // Retry once user touches the screen (iOS fallback)
+      document.addEventListener(
+        'touchstart',
+        () => videoElement.play(),
+        { once: true }
+      );
+    });
+  }
+}
+    </script>
+  </body>
+</html>

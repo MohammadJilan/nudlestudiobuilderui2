@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+  <title>Nexera — Empowering Educators with AI & XR</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-blue: #5B7CE6;
+      --dark-blue: #4A63C1;
+      --light-blue: #EEF2FF;
+      --text-dark: #1a1a2e;
+      --text-gray: #666;
+      --border-color: #E5E5E5;
+      --white: #fff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #F9FAFB;
+      color: var(--text-dark);
+    }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #7B8FF7, #5B6FD8);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-top: 80px;
+      margin-bottom: 60px;
+    }
+
+    .page-hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    /* CATEGORY BUTTONS */
+    .categories {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .category-btn {
+      padding: 12px 24px;
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: 24px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .category-btn.active {
+      background: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+
+    .category-btn.locked {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* COURSES GRID */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(91,124,230,0.18);
+    }
+
+    .course-image {
+      position: relative;
+      height: 200px;
+      margin: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .course-image iframe,
+    .course-image video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .free-trial-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      z-index: 5;
+    }
+
+    .course-content {
+      padding: 20px;
+    }
+
+    /* 🔰 DIFFICULTY PILL */
+    .difficulty-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f3f4f6;
+      color: #374151;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .difficulty-icon {
+      width: 14px;
+      height: 14px;
+      background: #22c55e;
+      border-radius: 4px;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    }
+
+    .course-type {
+      display: inline-block;
+      background: var(--light-blue);
+      color: var(--dark-blue);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .course-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 6px 0;
+    }
+
+    .course-specialization {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    .view-course-btn {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5B7CE6, #7B8FF7);
+      color: white;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navigation-placeholder"></div>
+
+<section class="page-hero">
+  <h1 id="heroTitle">Discover Learning Experiences</h1>
+  <p id="heroDescription">
+    Explore immersive AR/VR courses designed to transform education
+  </p>
+</section>
+
+<div class="container">
+
+  <h2 class="section-title">Learning Levels</h2>
+  <div class="categories">
+    <button class="category-btn active" onclick="filterByCategory('all', event)">ECD</button>
+    <button class="category-btn locked">Primary School</button>
+    <button class="category-btn" onclick="filterByCategory('k12', event)">High School</button>
+    <button class="category-btn" onclick="filterByCategory('higher-education', event)">Higher Education</button>
+    <button class="category-btn" onclick="filterByCategory('vocational', event)">Vocational</button>
+  </div>
+
+  <h2 class="section-title">Popular Courses</h2>
+  <div class="courses-grid" id="coursesGrid"></div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+const coursesData = {
+  agriculture: {
+    title: 'Agriculture',
+    description: 'Learn modern agricultural techniques with immersive AR technology',
+    courses: [
+      {
+        id: 1,
+        title: 'Animal Production',
+        difficulty: 'Beginner',
+        category: 'vocational',
+        type: 'vimeo',
+        video: 'https://player.vimeo.com/video/1145551236?autoplay=1&loop=1&muted=1&background=1',
+        specialization: 'Learn basic livestock management techniques'
+      }
+    ]
+  }
+};
+
+let currentIndustry = 'agriculture';
+let currentCategory = 'all';
+
+function filterByCategory(category, event) {
+  currentCategory = category;
+  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderCourses();
+}
+
+function renderCourses() {
+  const grid = document.getElementById('coursesGrid');
+  const courses = coursesData[currentIndustry].courses;
+
+  const filtered = currentCategory === 'all'
+    ? courses
+    : courses.filter(c => c.category === currentCategory);
+
+  grid.innerHTML = filtered.map(course => `
+    <a href="module.html?course=${course.id}&industry=${currentIndustry}" class="course-card">
+
+      <div class="course-image">
+        <span class="free-trial-badge">Free trial</span>
+        <iframe src="${course.video}" allow="autoplay; fullscreen"></iframe>
+      </div>
+
+      <div class="course-content">
+
+        <div class="difficulty-pill">
+          <span class="difficulty-icon"></span>
+          ${course.difficulty}
+        </div>
+
+        <span class="course-type">${course.category}</span>
+
+        <h3 class="course-title">${course.title}</h3>
+
+        <div class="course-specialization">${course.specialization}</div>
+
+        <span class="view-course-btn">View Course</span>
+
+      </div>
+    </a>
+  `).join('');
+}
+
+renderCourses();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1821 @@
+<!Doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/nexera_icon.png" />
+  <title>Nexera — Empowering Educators with AI & XR</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{
+      --primary-blue: #5B7CE6;
+      --dark-blue: #4A63C1;
+      --light-blue: #EEF2FF;
+      --accent-yellow: #FFC107;
+      --accent-orange: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      --text-dark: #1a1a2e;
+      --text-gray: #666666;
+      --border-color: #E5E5E5;
+      --white: #FFFFFF;
+    }
+    body{
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: white;
+    }
+    .back-nav { background: var(--white); border-bottom: 1px solid var(--border-color); padding: 16px 0px; }
+    .back-nav .container { max-width: 1250px; margin: 0 auto; }
+    .back-btn { background: transparent; border: none; color: var(--primary-blue); font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s; }
+    .back-btn:hover { color: var(--dark-blue); }
+    .course-header { background: var(--white); padding: 32px; }
+    .header-container { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .header-left, .header-right { display: flex; flex-direction: column; }
+    .header-content h1 { font-size: 38px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); line-height: 1.3; }
+    .stats-share { display: flex; flex-direction: column; gap: 16px; }
+    .course-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .stat { text-align: center; padding: 16px; background: var(--light-blue); border-radius: 12px; }
+    .stat{
+      padding-bottom: -30px;
+      padding-top: -500px;
+    }
+    .stat-value { font-size: 18px; font-weight: 700; color: var(--text-dark); display:flex; align-items:center; justify-content:center; gap:4px; margin-bottom:4px; }
+    .star { color: var(--accent-yellow); }
+    .stat-label { font-size: 13px; color: var(--text-gray); }
+    .btn-enroll, .btn-certificate {
+      width: 100%;
+      background: var(--primary-blue);
+      color: var(--white);
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn-enroll{
+        margin-top: 23px;
+        padding: 18px;
+        box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.15),
+    0 30px 80px rgba(91,124,230,0.35);
+    }
+    .btn-enroll:hover{
+      /* background: var(--dark-blue); */
+          transform: translateY(-2px);
+        box-shadow:
+          0 8px 0 #4A63C1,
+          0 14px 30px rgba(91,124,230,0.6);
+    }
+    .btn-certificate:hover{scale: 1.2; z-index:1000;}
+    /* .btn-enroll:hover, .btn-certificate:hover { background: var(--dark-blue); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(91, 124, 230, 0.3); } */
+    .linkedin-icon { width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:40px; border: 2px solid white; padding: 20px; }
+    /* Video section */
+    .video-section { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center; height: 250px; padding-bottom: -500px;}
+    .video-wrapper { position: relative; aspect-ratio: 16 / 9; width:100%; border-radius: 12px; overflow: hidden; }
+    .video-wrapper .media { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-placeholder { position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; background: linear-gradient(135deg, var(--primary-blue) 0%, #7B93E8 100%); }
+    .video-placeholder i { font-size: 64px; margin-bottom: 16px; opacity: 0.9; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 5px 20px; background-color:white !important;}
+    .content-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-bottom:40px; }
+    .content-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+    .learning-items { display: grid; gap: 16px; }
+    .learning-item { display:flex; gap:12px; font-size:15px; color:var(--text-dark); line-height:1.6; }
+    .checkmark { color: var(--primary-blue); font-weight:700; flex-shrink:0; font-size:18px; }
+    /* Course description toggle */
+    #toggleDesc { margin-top:10px; background:none; border:none; color:var(--primary-blue); cursor:pointer; font-weight:600; }
+    /* Lessons section */
+  /* ================= LESSON UI (GLOW STYLE) ================= */
+
+.lessons-section {
+  margin: 50px 0;
+}
+.lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.lesson-card {
+  position: relative;
+  background: linear-gradient(180deg, #f9faff, #eef2ff);
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 10px 30px rgba(91,124,230,0.12);
+  border: 1px solid rgba(91,124,230,0.15);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.lesson-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(91,124,230,0.2);
+}
+/* glowing ring */
+.lesson-media {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: white;
+  padding: 6px;
+}
+.lesson-media::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5B7CE6, #9FAEFF);
+  filter: blur(8px);
+  opacity: 0.8;
+  z-index: 0;
+}
+.lesson-media img,
+.lesson-media video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+}
+.lesson-info {
+  flex: 1;
+}
+.lesson-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.lesson-progress {
+  font-size: 13px;
+  color: var(--text-gray);
+  margin-top: 4px;
+}
+.lesson-action {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lesson-action:hover {
+  background: var(--dark-blue);
+}
+.lesson-locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+    /* Resources section */
+    .resources-section { margin-top: 60px; margin-bottom: 50px; }
+    .resources-section .section-title { font-size: 24px; font-weight: 700; margin-bottom: 25px; text-align: center; color: var(--text-dark); }
+    .resources-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .resource-card { background: #ffffff; border: 1px solid #ddd; border-radius: 12px; display: flex; align-items: center; gap: 16px; padding: 20px 28px; flex: 1 1 320px; min-width: 280px; max-width: 480px; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    .resource-card:hover { box-shadow: 0 6px 18px rgba(91, 124, 230, 0.15); transform: translateY(-4px); }
+    .resource-icon { font-size: 32px; color: var(--primary-blue); }
+    .resource-text h3 { font-size: 18px; color: #333; margin: 0 0 6px; }
+    .resource-text p { font-size: 14px; color: #555; margin: 0; }
+    /* Demo Video */
+    .demo-video { background: var(--white); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+    .demo-video h3 { padding: 24px 32px; font-size:22px; font-weight:600; color:var(--text-dark); border-bottom:1px solid var(--border-color); }
+    .demo-video .video-wrapper { aspect-ratio: 16 / 9; position:relative; overflow:hidden; }
+    .demo-video .media { width:100%; height:100%; object-fit:cover; }
+    /* CTA */
+    .cta-section { background: var(--white); border: 1px solid var(--border-color); border-radius:12px; padding:48px; text-align:center; margin-bottom:40px; }
+    .cta-section h2 { font-size:28px; font-weight:700; margin-bottom:16px; color:var(--text-dark); }
+    .cta-section p { font-size:16px; color:var(--text-gray); margin-bottom:28px; max-width:600px; margin-left:auto; margin-right:auto; }
+    .btn-register { padding:16px 48px; background: var(--accent-orange); border:none; border-radius:8px; color:var(--text-dark); font-size:18px; font-weight:600; cursor:pointer; box-shadow:0 4px 20px rgba(255,193,7,0.4); }
+    .btn-register:hover { transform: translateY(-2px); box-shadow:0 6px 24px rgba(255,193,7,0.5); }
+    @media (max-width:968px) {
+      .header-container { grid-template-columns: 1fr; }
+      .header-content h1 { font-size: 28px; }
+    }
+ @media (max-width: 480px) {
+  .demo-video{
+    display: none;
+  }
+ }
+  .video-section { 
+  height: 330px; 
+  margin-bottom: 16px; 
+}
+.btn-enroll {
+  margin-top: 0;
+  padding: 18px;
+}
+.course-description-text{
+  margin-top: -20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+/* Extra */
+
+.btn-enroll {
+    /* display: inline-block;
+    padding: 12px 20px;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600; */
+        display: inline-block;
+        padding: 10px 50px;
+        padding-top: 20px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #5B7CE6, #7B8FF7);
+        color: white;
+        box-shadow:
+          0 6px 0 #4A63C1,
+          0 10px 22px rgba(91,124,230,0.45);
+        transition: all 0.2s ease;
+        margin-top: 20px;
+        margin-bottom: 0;
+        align-self: stretch;
+        text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    height: 75px;
+}
+/* line-height: 36px;
+} 
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .btn-enroll {
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+    }
+}
+  </style>
+  <style>
+    #mainMediaWrap {
+  width: 100%;
+  height: 380px; /* Increase this height as needed */
+  position: relative;
+}
+
+#mainMediaWrap iframe,
+#mainMediaWrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Parent demo section full-width layout */
+#demoSection {
+  width: 100%;
+  padding: 0;      /* remove spacing that breaks full-width */
+  margin: 0;
+}
+/* Optional: hide the heading if you want true full width */
+#demoSection h3 {
+  margin: 20px 0;
+  text-align: center;
+}
+/* Make the video container full width */
+#demoVideoWrap {
+  width: 100%;
+  height: 450px;     /* adjust height as you like */
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background:black;
+}
+/* Make the Vimeo iframe fill the container fully */
+#demoVideoWrap iframe,
+#demoVideoWrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+.industry-select-wrap {
+  position: relative;
+  z-index: 10001;
+}
+
+#industryDropdown {
+  pointer-events: auto;
+  cursor: pointer;
+}
+/* Main stats row = 3 in one line */
+#courseStats {
+  grid-template-columns: repeat(3, 1fr);
+}
+/* Bottom mini row spacing */
+.header-left > .course-stats:last-of-type {
+  margin-top: 16px;
+}
+/* Make mini stats feel lighter */
+.header-left > .course-stats:last-of-type .stat {
+  padding: 12px;
+}
+/* Beginner long bar */
+.stat-full {
+  width: 100%;
+  margin-top: 12px;
+}
+.stat-full:hover{
+  scale: 1.2; z-index:1000;
+  cursor: pointer;
+}
+
+/* Bottom row spacing */
+.course-header > .container {
+  margin-top: 24px;
+}
+
+/* Bottom row = 3 equal items */
+.course-header .course-stats {
+  grid-template-columns: repeat(3, 1fr);
+}
+/* Make long buttons feel more dominant */
+.btn-certificate,
+.stat-full {
+  padding: 20px 22px;
+  border-radius: 14px;
+}
+.btn-certificate {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #c7d7ff 0%,
+    #e3d7ff 50%,
+    #ffffff 100%
+  );
+  color: #1a1a2e;
+}
+.btn-certificate::before,
+.btn-certificate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white 90%, transparent),
+    radial-gradient(2px 2px at 70% 40%, white 90%, transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, white 90%, transparent),
+    radial-gradient(1.5px 1.5px at 80% 20%, white 90%, transparent);
+  opacity: 0.8;
+  animation: sparkle 6s linear infinite;
+  pointer-events: none;
+}
+
+.btn-certificate::after {
+  animation-duration: 9s;
+  opacity: 0.5;
+}
+@keyframes sparkle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+/* Make the two main bars BIG and premium */
+.btn-certificate,
+.stat-full {
+  min-height: 88px;
+  padding: 26px 28px;
+  border-radius: 18px;
+}
+
+/* Slightly larger text inside */
+.btn-certificate {
+  font-size: 18px;
+}
+.stat-full .stat-value {
+  font-size: 20px;
+}
+
+.btn-certificate::before, .stat-full::before,
+.btn-certificate::after, .stat-full::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, white 90%, transparent),
+    radial-gradient(2px 2px at 30% 60%, white 90%, transparent),
+    radial-gradient(1.5px 1.5px at 50% 30%, white 90%, transparent),
+    radial-gradient(1.5px 1.5px at 70% 70%, white 90%, transparent),
+    radial-gradient(2px 2px at 90% 40%, white 90%, transparent),
+    radial-gradient(1.5px 1.5px at 20% 80%, white 90%, transparent),
+    radial-gradient(2px 2px at 60% 10%, white 90%, transparent);
+  opacity: 0.9;
+  animation: sparkle 5s linear infinite;
+  pointer-events: none;
+}
+
+.btn-certificate::after {
+  animation-duration: 9s;
+  opacity: 0.6;
+}
+@keyframes sparkle {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-40px); }
+}
+
+
+/* HERO SIZE – main callouts */
+.btn-certificate,
+.stat-full {
+  min-height: 80px;         
+  padding: 24px 26px;        
+  border-radius: 22px;
+   box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35);
+}
+/* Text scaling */
+.btn-certificate {
+  font-size: 20px;
+}
+.stat-full .stat-value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Give them visual separation */
+.btn-certificate {
+  margin-bottom: 20px;
+}
+.stat-full {
+  margin-bottom: 28px;
+}
+.beginner-icon {
+ color: #5B7CE6;
+  display: flex;
+  align-items: center;
+  font-size: 46px; 
+  position: relative;
+  top: 25px;
+  left: 50px;
+}
+.calender-icon{
+  color: #5B7CE6;
+  display: flex;
+  align-items: center;
+  font-size: 46px; 
+  position: relative;
+   left: 105px;
+  bottom: -50px;
+  padding-top: -50px;
+}
+
+.stopwatch-icon{
+  color: #5B7CE6;
+  display: flex;
+  align-items: center;
+  font-size: 46px; 
+  position: relative;
+   left: 35px;
+  bottom: -50px;
+  padding-top: -50px;
+}
+.briefcase-icon{
+ color: #5B7CE6;
+  display: flex;
+  align-items: center;
+  font-size: 46px; 
+  position: relative;
+  /* top: 25px; */
+  left: 35px;
+  bottom: -50px;
+  padding-top: -50px;
+}
+.level-pill {
+  display: flex;
+  align-items: center;
+}
+.level-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.level-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-value {
+  font-weight: 600;
+
+}
+.stat-label {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.course-description-text {
+  padding: 40px 0;
+}
+/* .navbar {
+  position: fixed;
+  z-index: 10000;
+}
+
+.back-btn {
+  position: relative;
+  z-index: 2000;
+}
+.back-btn {
+  position: fixed;
+  top: 72px;       
+  left: 24px;
+  z-index: 10001;   
+} */
+
+/* 
+.stat {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+} */
+
+.calender-icon.stat-value,
+.stopwatch-icon.stat-value,
+.briefcase-icon.stat-value {
+  color: #5B7CE6;
+  display: flex;
+  align-items: center;
+  font-size: 46px;
+  margin-bottom: -50px; 
+  margin-top: 80px;
+}
+
+  </style>
+
+  <style>
+
+    /* ===== FIX STAT CARD ALIGNMENT ===== */
+.course-stats .stat {
+  display: flex;
+  align-items: center;        /* vertical centering */
+  padding: 14px 20px;
+  gap: 16px;
+  padding-left: 110px;
+}
+
+/* normalize all icons */
+.calender-icon,
+.stopwatch-icon,
+.briefcase-icon {
+  position: static !important;   /* kill top/left offsets */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46px;
+  min-width: 46px;
+  margin: 0;
+  
+}
+
+/* clean text alignment */
+.stat-value {
+  padding-left: 0 !important;     /* remove manual push */
+  margin: 0 !important;           /* remove negative margins */
+  line-height: 1.2;
+  white-space: nowrap;
+}
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <div id="navigation-placeholder"></div>
+  <!-- BACK NAVIGATION -->
+  <div class="back-nav">
+    <div class="container">
+      <button class="back-btn" onclick="window.history.back()">← Back to courses</button>
+    </div>
+  </div>
+  <!-- COURSE HEADER -->
+
+<section class="course-header">
+
+    <div class="back-nav">
+    <div class="container">
+      <button class="back-btn" onclick="window.history.back()">← Back to courses</button>
+    </div>
+  </div>
+  <div class="header-container" style="margin-top: 20px;">
+    <!-- ================= LEFT ================= -->
+    <div class="header-left header-content">
+
+      <h1 id="courseTitle">Animal Anatomy</h1>
+      <p class="course-description-text" id="headerDescription">
+        Primary Agriculture
+      </p>
+      <!-- SHAREABLE CERTIFICATE (LONG) -->
+      <button class="btn-certificate" >
+        <div class="linkedin-icon" style="margin-right:26px;">
+          <i class="fab fa-linkedin-in"></i>
+        </div>
+        <p style="margin-left:-16px;">Shareable Certificate</p>
+      </button>     
+         <button class="btn-certificate">
+        <div class="linkedin-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="stat-value" id="statLevel" style="margin-right: 6px;">Beginner</div>
+      <div class="stat-label">Recommended level</div>
+      </button>
+    </div>
+    <!-- ================= RIGHT ================= -->
+    <div class="header-right">
+
+      <div class="video-section">
+        <div class="video-wrapper" id="mainMediaWrap">
+          <div class="video-placeholder" id="mainVideoPlaceholder">
+            <i class="fas fa-play-circle"></i>
+            <span>Course Introduction Video</span>
+          </div>
+        </div>
+      </div>
+      <a href="chicken.html" class="btn-enroll" id="startExperience" target="_blank">
+        Start Experience
+      </a>
+    </div>
+  </div>
+  <!-- ================= BOTTOM ROW ================= -->
+  <div class="container">
+    <div class="course-stats">
+      <div class="stat" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35); "> 
+    
+      <div class="calender-icon" style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:40px; border: 2px solid white; padding: 20px; ">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-value" id="statFlex" style="padding-left: 30px;">Flexible</div>
+        <!-- <div class="stat-label">Schedule</div> -->
+      </div>
+      <div class="stat" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35);">
+      <div class="stopwatch-icon" style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:40px; border: 2px solid white; padding: 20px; ">
+          <i class="fas fa-stopwatch"></i>
+        </div>
+        <div class="stat-value" id="statTime" style="padding-left: 30px;   margin-bottom: -30px;">45 minutes</div>
+        <!-- <div class="stat-label">Estimated duration</div> -->
+      </div>
+      <div class="stat stat-industry" style=" box-shadow:
+    0 0 0 2px rgba(91,124,230,0.15),
+    0 30px 80px rgba(91,124,230,0.35);">
+      <div class="briefcase-icon" style="width:64px; height:64px; background:var(--primary-blue); color:#fff; display:flex; justify-content:center; align-items:center; border-radius:50%; font-size:40px; border: 2px solid white; padding: 20px; ">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="stat-value" id="statCaps" style="padding-left: 30px;">Industry-Relevant</div>
+        <!-- <div class="stat-label">Skill-based content</div> -->
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- COURSE CONTENT -->
+  <div class="container">
+    <!-- Course Description -->
+    <div class="content-card course-description">
+      <h2>What you will Learn</h2>
+      <p id="courseDescription"></p>
+      <button id="toggleDesc">Read more</button>
+    </div>
+    <!-- Skills you will gain -->
+    <div class="content-card">
+      <h2>Skills you will gain</h2>
+      <div class="learning-items" id="skillsItems"></div>
+    </div>
+    <!-- Lessons -->
+    <div class="lessons-section container">
+      <h2>Lessons</h2>
+      <div class="lessons-list" id="lessonsList"></div>
+    </div>
+       <!-- Explore Topics -->
+    <div class="content-card">
+      <h2>Explore Topics</h2>
+      <div id="exploreTopics" style="display:flex; flex-wrap:wrap; gap:16px;"></div>
+    </div>
+    <!-- Resources -->
+    <section class="resources-section">
+      <h2 class="section-title">Resources</h2>
+      <div class="resources-container" id="resourcesContainer"></div>
+    </section>
+    <!-- Demo -->
+    <div class="demo-video" id="demoSection">
+      <h3>See a Demo of Interactive AR Experience</h3>
+      <div class="video-wrapper" id="demoVideoWrap"></div>
+    </div>
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Would you like to create experiences like this?</h2>
+      <p>Join thousands of educators transforming their teaching with immersive 3D/AR technology. No coding skills required!</p>
+      <button class="btn-register" onclick="window.location.href='index.html'">Register for free</button>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+  <script>
+    // MODULES
+const courseModules= {
+  1: {
+    id: 1,
+    industry: "agriculture",
+    title: "Animal Production",
+    description: "Learn essential livestock production techniques",
+    header: "Introduction to animal farming. It encompasses the care of livestock such as cattle, sheep, goats, pigs, and poultry, ensuring their health, nutrition, and welfare to maximize productivity.",
+    level: "Beginner",
+    time: "45 minutes",
+    flex: "Flexible",
+    caps: "Industry-Relevant",
+    locked: false,
+    modules: [
+      {
+        id: 1,
+        title: "Animal Anatomy",
+        description: "Introduction to animal farming. It encompasses the care of livestock such as cattle, sheep, goats, pigs, and poultry, ensuring their health, nutrition, and welfare to maximize productivity.",
+         lessons: [
+    {
+      title: "Skeletal systems",
+      progress: 100,
+      media: { type: "video", src: "images/GoatSkeleton.mp4" },
+      locked: false
+    },
+    {
+      title: "Muscular systems",
+      progress: 60,
+      media: { type: "video", src: "images/Scene1_ChickenAnatomyandDigestion.mp4" },
+      locked: false
+    },
+    {
+      title: "Digestive systems",
+      progress: 0,
+      media: { type: "video", src: "images/Scene2_ChickenReproduction.mp4" },
+      locked: true
+    }
+  ],
+        learning: ["Understand animal body systems"],
+        skills: ["Identify animal anatomy", "Animal handling & care", "Livestock breeding fundamentals", "Farm housing & management"],
+        mainMedia: { type: "video", src: "images/GoatSkeleton.mp4" },
+        topics: [
+  "Skeletal structure",
+  "Muscle groups",
+  "Digestive anatomy"
+],
+resources: [
+  {
+    title: "Animal Anatomy Guide",
+    desc: "PDF reference for animal anatomy",
+    file: "resources/animal-anatomy.pdf",
+    icon: "fas fa-file-pdf"
+  },
+    {
+    title: "Animal Lesson Guide",
+    desc: "PDF reference for animal anatomy",
+    file: "resources/animal-anatomy.pdf",
+    icon: "fas fa-file-pdf"
+  },
+    {
+    title: "Animal Teaching Guide",
+    desc: "PDF reference for animal anatomy",
+    file: "resources/animal-anatomy.pdf",
+    icon: "fas fa-file-pdf"
+  }
+]
+      },
+      {
+        id: 2,
+        title: "Feeding Systems",
+        description: "Feed & dietary planning",
+        lessons: ["Feed types", "Rations"],
+        learning: ["Understand feeding systems"],
+        skills: ["Plan animal diets"],
+        mainMedia: { type: "vimeo", src: "https://player.vimeo.com/video/1145551236?autoplay=1&loop=1&muted=1&background=1" },
+        resources: []
+      },
+
+           {
+        id: 3,
+        title: "Disease Control",
+        description: "Feed & dietary planning",
+        lessons: ["Feed types", "Rations"],
+        learning: ["Understand feeding systems"],
+        skills: ["Plan animal diets"],
+        mainMedia: { type: "vimeo", src: "https://player.vimeo.com/video/1145551236?autoplay=1&loop=1&muted=1&background=1" },
+        resources: []
+      },
+           {
+        id: 4,
+        title: "Animal Welfare",
+        description: "Feed & dietary planning",
+        lessons: ["Feed types", "Rations"],
+        learning: ["Understand feeding systems"],
+        skills: ["Plan animal diets"],
+        mainMedia: { type: "vimeo", src: "https://player.vimeo.com/video/1145551236?autoplay=1&loop=1&muted=1&background=1" },
+        resources: []
+      }
+    ]
+  },
+
+  2: {
+    id: 2,
+    industry: "agriculture",
+    title: "Plant Production",
+    description: "Understand modern plant production systems",
+    header: "Primary Agriculture",
+    level: "Beginner",
+    time: "45 minutes",
+    flex: "Flexible",
+    caps: "Industry-Relevant",
+    locked: false,
+
+    modules: [
+      {
+        id: 1,
+        title: "Soil Preparation",
+        description: "Preparing land for planting",
+        lessons: ["Soil types", "Soil testing"],
+        learning: ["Understand soil health"],
+        skills: ["Prepare soil correctly"],
+        mainMedia: { type: "vimeo", src: "https://player.vimeo.com/video/1145551236?autoplay=1&loop=1&muted=1&background=1" },
+        resources: []
+      }
+    ]
+  }
+};
+    // END MODULES
+  function createDemoMediaHTML(media) {
+  if (!media) return "";
+
+  if (media.type === "vimeo") {
+    return `
+      <iframe 
+        src="${media.src}" 
+        width="100%" 
+        height="360" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture" 
+        allowfullscreen
+        style="border-radius:20px;">
+      </iframe>
+    `;
+  }
+  if (media.type === "video") {
+    return `<video class="media" src="${media.src}" autoplay loop muted playsinline controls></video>`;
+  }
+  return "";
+}
+  // --- Render resources dynamically ---
+  function renderResources(course) {
+    // const container = document.querySelector('.resources-container');
+    const container= document.getElementById("resourcesContainer");
+    if (!container) return;
+    container.innerHTML = ''; // Clear old content
+    if (!course.resources || course.resources.length === 0) {
+      container.innerHTML = `<p style="text-align:center; color:#777;">No resources available for this course.</p>`;
+      return;
+    }
+    container.innerHTML = course.resources.map(resource => `
+      <a href="${resource.file}" target="_blank" class="resource-card">
+        <div class="resource-icon"><i class="${resource.icon}"></i></div>
+        <div class="resource-text">
+          <h3>${resource.title}</h3>
+          <p>View and download the ${resource.title.toLowerCase()} (PDF)</p>
+        </div>
+      </a>
+    `).join('');
+  }
+  // --- Main course rendering logic ---
+  (function renderCourse() {
+    const urlParams = new URLSearchParams(window.location.search);
+    // const courseId = urlParams.get('id');
+    const course = coursesData[courseId];
+    const courseId = Number(urlParams.get('course')) || 1;;
+    const moduleIndex = Number(urlParams.get('module'))  - 1 || 0;
+    if (!course) {
+      console.error("Course not found!");
+      return;
+    }
+    document.getElementById('courseTitle').textContent = course.title;
+    document.getElementById('headerDescription').textContent=course.header;
+    document.getElementById('courseDescription').textContent = course.description;
+    document.getElementById('headerDescription').textContent = course.header;
+    document.getElementById('statLevel').textContent = course.level;
+    document.getElementById('statTime').textContent = course.time;
+    const main = document.getElementById('mainMediaWrap');
+    main.innerHTML = createMainMediaHTML(course.mainMedia);
+    const lessons = document.getElementById('lessonsList');
+    lessons.innerHTML = module.lessons.map((l, i) =>
+      `<div class="lesson-item"><strong>Lesson ${i + 1}:</strong> ${l}</div>`
+    ).join('');
+    document.getElementById('learningItems').innerHTML =
+      module.learning.map(l =>
+        `<div class="learning-item"><span class="checkmark">✓</span><span>${l}</span></div>`
+      ).join('');
+    document.getElementById('skillsItems').innerHTML =
+      module.skills.map(s =>
+        `<div class="learning-item"><span class="checkmark">✓</span><span>${s}</span></div>`
+      ).join('');
+    const demo = document.getElementById('demoSection');
+    const demoWrap = document.getElementById('demoVideoWrap');
+    if (course.mainMedia.type === 'video') {
+      demo.style.display = '';
+      demoWrap.innerHTML = createDemoMediaHTML(course.demoMedia || course.mainMedia);
+    } else {
+      demo.style.display = 'none';
+    }
+    checkLock(course);
+    // ✅ Render resources dynamically
+    renderResources(course);
+  })();
+    function createDemoMediaHTML(media) {
+    if (!media) return '';
+    if (media.type === 'video') 
+      return `<video class="media" src="${media.src}" autoplay loop muted playsinline></video>`;
+    return '';
+  }
+  // --- Render resources dynamically ---
+  function renderResources(course) {
+    const container = document.querySelector('.resources-container');
+    if (!container) return;
+    container.innerHTML = ''; // Clear old content
+    if (!course.resources || course.resources.length === 0) {
+      container.innerHTML = `<p style="text-align:center; color:#777;">No resources available for this course.</p>`;
+      return;
+    }
+    container.innerHTML = course.resources.map(resource => `
+      <a href="${resource.file}" target="_blank" class="resource-card">
+        <div class="resource-icon"><i class="${resource.icon}"></i></div>
+        <div class="resource-text">
+          <h3>${resource.title}</h3>
+          <p>View and download the ${resource.title.toLowerCase()} (PDF)</p>
+        </div>
+      </a>
+    `).join('');
+  }
+  // --- Main course rendering logic ---
+  (function renderCourse() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get('id');
+    const course = coursesData[courseId];
+if (!course || !course.modules[moduleIndex]) {
+  console.error("Module not found");
+  return;
+}
+const module = course.modules[moduleIndex];
+
+    const moduleId = params.get("module");
+    if (!course) {
+      console.error("Course not found!");
+      return;
+    }
+    document.getElementById('courseTitle').textContent = module.title;
+    document.getElementById('headerDescription').textContent = course.header;
+    document.getElementById('courseDescription').textContent = module.description;
+    document.getElementById('statLevel').textContent = course.level;
+    document.getElementById('statTime').textContent = course.time;
+    const main = document.getElementById('mainMediaWrap');
+    main.innerHTML = createMainMediaHTML(module.mainMedia);
+    const lessons = document.getElementById('lessonsList');
+ 
+
+    document.getElementById('learningItems').innerHTML =
+      module.learning.map(l =>
+        `<div class="learning-item"><span class="checkmark">✓</span><span>${l}</span></div>`
+      ).join('');
+    document.getElementById('skillsItems').innerHTML =
+      module.skills.map(s =>
+        `<div class="learning-item"><span class="checkmark">✓</span><span>${s}</span></div>`
+      ).join('');
+
+function applyLockState() {
+  const overlay = document.getElementById("courseLockedOverlay");
+  const btn = document.getElementById("enrollBtn");
+
+  if (course.locked) {
+    overlay.classList.add("active");
+    btn.disabled = true;
+    btn.onclick = () => alert("This course is locked.");
+  } else {
+    overlay.classList.remove("active");
+    btn.disabled = false;
+    btn.onclick = () => window.location.href = "persona.html";
+  }
+}
+applyLockState();
+    const demo = document.getElementById('demoSection');
+    const demoWrap = document.getElementById('demoVideoWrap');
+    if (course.mainMedia.type === 'video') {
+      demo.style.display = '';
+      demoWrap.innerHTML = createDemoMediaHTML(course.demoMedia || course.mainMedia);
+    } else {
+      demo.style.display = 'none';
+    }
+    // ✅ Render resources dynamically
+    renderResources(module);
+  })();
+  function renderResources(module) {
+    const container = document.getElementById("resourcesContainer");
+    if (!container) return;
+    if (!module.resources || module.resources.length === 0) {
+        container.innerHTML = "<p>No resources available.</p>";
+        return;
+    }
+    container.innerHTML = module.resources.map(r =>
+        `<a class="resource-item" href="${r.url}" target="_blank">${r.title}</a>`
+    ).join('');
+}
+  </script> 
+<script>
+  /* ===============================
+   HELPERS
+================================*/
+function renderResources(module) {
+  const container = document.getElementById("resourcesContainer");
+  if (!container) return;
+
+  if (!module.resources || module.resources.length === 0) {
+    container.innerHTML = `<p style="text-align:center;color:#777;">No resources available.</p>`;
+    return;
+  }
+  container.innerHTML = module.resources.map(r => `
+    <a href="${r.file}" target="_blank" class="resource-card">
+      <i class="${r.icon} resource-icon"></i>
+      <div class="resource-text">
+        <h3>${r.title}</h3>
+        <p>${r.desc}</p>
+      </div>
+    </a>
+  `).join("");
+}
+/* ===============================
+   MAIN RENDER FUNCTION
+================================*/
+function loadCourse() {
+
+  const courseId = new URLSearchParams(window.location.search).get("id");
+  const course = coursesData[courseId];
+  if (!course) {
+    console.error("❌ ERROR: Course not found.");
+    return;
+  }
+
+  // --- Header Info ---
+  document.getElementById("courseTitle").textContent = course.title;
+  document.getElementById("headerDescription").textContent = course.header;
+  document.getElementById("statLevel").textContent = course.level;
+  document.getElementById("statTime").textContent = course.time;
+  document.getElementById("statFlex").textContent = course.flex;
+  document.getElementById("statCaps").textContent = course.caps;
+  // --- Description Toggle ---
+  const descEl = document.getElementById("courseDescription");
+  //  const descText = document.getElementById("headerDescription");
+  const toggleBtn = document.getElementById("toggleDesc");
+  const fullDesc = course.description;
+  const shortDesc = fullDesc.slice(0, 150) + "...";
+  let isOpen = false;
+  descEl.textContent = shortDesc;
+  toggleBtn.onclick = () => {
+    isOpen = !isOpen;
+    descEl.textContent = isOpen ? fullDesc : shortDesc;
+    toggleBtn.textContent = isOpen ? "Show less" : "Read more";
+  };
+  descText.textContent = shortDesc;
+  toggleBtn.onclick = () => {
+    isOpen = !isOpen;
+    descText.textContent = isOpen ? fullDesc : shortDesc;
+    toggleBtn.textContent = isOpen ? "Show less" : "Read more";
+  };
+  // --- Skills ---
+  document.getElementById("skillsItems").innerHTML = 
+    module.skills.map(s => `<div class="learning-item"><span class="checkmark">✔</span>${s}</div>`).join("");
+
+  // --- Topics ---
+  document.getElementById("exploreTopics").innerHTML =
+    module.topics.map(t => `<div style="padding:12px 16px;background:#eef2ff;border-radius:8px;">${t}</div>`).join("");
+
+  // --- Lessons ---
+function createLessonMedia(media) {
+  if (!media) return "";
+
+  if (media.type === "video") {
+    return `<video src="${media.src}" autoplay muted loop playsinline></video>`;
+  }
+
+  return `<img src="${media.src}" alt="">`;
+}
+document.getElementById("lessonsList").innerHTML =
+  module.lessons.map((lesson, i) => `
+    <div class="lesson-card ${lesson.locked ? 'lesson-locked' : ''}">
+      
+      <div class="lesson-media">
+        ${createLessonMedia(lesson.media)}
+      </div>
+
+      <div class="lesson-info">
+        <div class="lesson-title">
+          Lesson ${i + 1}: ${lesson.title}
+        </div>
+        <div class="lesson-progress">
+          ${lesson.progress}% complete
+        </div>
+      </div>
+
+      <button class="lesson-action">
+        ${lesson.progress === 100 ? "Continue" : "Start"}
+      </button>
+
+    </div>
+  `).join("");
+  // --- Main Media ---
+  document.getElementById("mainMediaWrap").innerHTML = createMainMediaHTML(course.mainMedia);
+
+  // --- Demo Section ---
+  const demoWrap = document.getElementById("demoVideoWrap");
+  demoWrap.innerHTML = createDemoMediaHTML(course.demoMedia);
+
+  // --- Resources ---
+  renderResources(course);
+}
+/* ===============================
+   START
+================================*/
+loadCourse();
+
+// Load Nav + Footer
+fetch("navigation.html").then(r => r.text()).then(html => {
+  document.getElementById("navigation-placeholder").innerHTML = html;
+});
+fetch("footer.html").then(r => r.text()).then(html => {
+  document.getElementById("footer-placeholder").innerHTML = html;
+});
+</script>
+</script>
+<!-- <div id="courseLockedOverlay">Locked</div> -->
+<script>
+  const course = coursesData[courseId];
+// ---- Course Lock System ----
+if (course.locked) {
+  document.getElementById("courseLockedOverlay").classList.add("active");
+}
+const startBtn = document.getElementById("startExperience");
+const lockOverlay = document.getElementById("lockOverlay");
+
+if (startBtn) {
+  startBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // stop navigation if it has a link
+    lockOverlay.classList.add("active");
+  });
+}
+</script>
+<script>
+const btn = document.getElementById("startExperience");
+const overlay = document.getElementById("lockOverlay");
+
+if (btn && overlay) {
+  btn.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+      window.location.href = "persona.html";
+    }, 1200);
+  });
+}
+</script>
+<script>
+
+function createDemoMediaHTML(media) {
+  if (!media) return "";
+
+  if (media.type === "vimeo") {
+    return `
+      <iframe 
+        src="${media.src}"
+        width="100%" 
+        height="360"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        style="border-radius:20px;">
+      </iframe>
+    `;
+  }
+  if (media.type === "video") {
+    return `<video class="media" src="${media.src}" autoplay loop muted playsinline controls></video>`;
+  }
+
+  return "";
+}
+// VIMEOOOOO JAVASCRIPT
+</script>
+<script>
+/* ===============================
+   HELPER FUNCTIONS
+================================*/
+function createMainMediaHTML(media) {
+  if (!media) return "";
+
+  if (media.type === "vimeo") {
+    return `
+      <iframe 
+        src="${media.src}" 
+        width="100%" 
+        height="450" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture" 
+        allowfullscreen
+        style="border-radius:20px;">
+      </iframe>
+    `;
+  }
+  if (media.type === "video") {
+    return `
+      <video class="main-media" controls autoplay muted playsinline style="width:100%; border-radius:20px;">
+        <source src="${media.src}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    `;
+  }
+
+  if (media.type === "image") {
+    return `<img class="main-media" src="${media.src}" style="width:100%; border-radius:20px;">`;
+  }
+
+  return "";
+}
+
+function createDemoMediaHTML(media) {
+  if (!media) return "";
+
+  if (media.type === "vimeo") {
+    return `
+      <iframe 
+        src="${media.src}" 
+        width="100%" 
+        height="360" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture" 
+        allowfullscreen
+        style="border-radius:20px;">
+      </iframe>
+    `;
+  }
+
+  if (media.type === "video") {
+    return `<video class="media" src="${media.src}" autoplay loop muted playsinline controls></video>`;
+  }
+  return "";
+}
+function renderResources(module) {
+  const container = document.getElementById("resourcesContainer");
+  if (!container) return;
+
+  if (!module.resources || module.resources.length === 0) {
+    container.innerHTML = `<p style="text-align:center;color:#777;">No resources available.</p>`;
+    return;
+  }
+  container.innerHTML = module.resources.map(r => `
+    <a href="${r.file}" target="_blank" class="resource-card">
+      <i class="${r.icon} resource-icon"></i>
+      <div class="resource-text">
+        <h3>${r.title}</h3>
+        <p>${r.desc}</p>
+      </div>
+    </a>
+  `).join("");
+}
+/* ===============================
+   MAIN COURSE RENDER FUNCTION
+================================*/
+function loadCourse() {
+  const courseId = new URLSearchParams(window.location.search).get("id");
+  const course = coursesData[courseId];
+
+  if (!course) {
+    console.error("❌ ERROR: Course not found.");
+    return;
+  }
+  // --- Header Info ---
+  document.getElementById("courseTitle").textContent = course.title;
+  document.getElementById("headerDescription").textContent = course.header || "";
+  document.getElementById("statLevel").textContent = course.level;
+  document.getElementById("statTime").textContent = course.time;
+  document.getElementById("statFlex").textContent = course.flex;
+  document.getElementById("statCaps").textContent = course.caps;
+
+  // --- Description Toggle ---
+  const descEl = document.getElementById("courseDescription");
+  // const descText = document.getElementById("headerDescription");
+  const toggleBtn = document.getElementById("toggleDesc");
+  const fullDesc = course.description;
+  const shortDesc = fullDesc.slice(0, 150) + "...";
+  let isOpen = false;
+  descEl.textContent = shortDesc;
+  descText.textContent = shortDesc;
+
+  toggleBtn.onclick = () => {
+    isOpen = !isOpen;
+    descEl.textContent = isOpen ? fullDesc : shortDesc;
+    descText.textContent = isOpen ? fullDesc : shortDesc;
+    toggleBtn.textContent = isOpen ? "Show less" : "Read more";
+  };
+  // --- Skills ---
+  document.getElementById("skillsItems").innerHTML =
+    module.skills.map(s => `<div class="learning-item"><span class="checkmark">✔</span>${s}</div>`).join("");
+
+  // --- Topics ---
+  document.getElementById("exploreTopics").innerHTML =
+    course.topics.map(t => `<div style="padding:12px 16px;background:#eef2ff;border-radius:8px;">${t}</div>`).join("");
+
+  // --- Lessons ---
+  document.getElementById("lessonsList").innerHTML =
+    module.lessons.map((l, i) => `<div class="lesson-item"><strong>Lesson ${i + 1}:</strong> ${l}</div>`).join("");
+
+  // --- Main Media ---
+  document.getElementById("mainMediaWrap").innerHTML = createMainMediaHTML(course.mainMedia);
+
+  // --- Demo Section ---
+  const demoWrap = document.getElementById("demoVideoWrap");
+  demoWrap.innerHTML = createDemoMediaHTML(course.demoMedia || course.mainMedia);
+  // --- Resources ---
+  renderResources(course);
+  // --- Course Lock System ---
+  const overlay = document.getElementById("courseLockedOverlay");
+  const enrollBtn = document.getElementById("enrollBtn");
+
+  if (course.locked) {
+    overlay.classList.add("active");
+    if (enrollBtn) {
+      enrollBtn.disabled = true;
+      enrollBtn.onclick = () => alert("This course is locked.");
+    }
+  } else {
+    overlay.classList.remove("active");
+    if (enrollBtn) {
+      enrollBtn.disabled = false;
+      enrollBtn.onclick = () => window.location.href = "persona.html";
+    }
+  }
+}
+
+loadCourse();
+// --- Load Nav + Footer ---
+fetch("navigation.html").then(r => r.text()).then(html => {
+  document.getElementById("navigation-placeholder").innerHTML = html;
+});
+fetch("footer.html").then(r => r.text()).then(html => {
+  document.getElementById("footer-placeholder").innerHTML = html;
+});
+</script>
+<script>
+fetch("navigation.html")
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById("nav-placeholder").innerHTML = html;
+
+    const exploreLink = document.getElementById("exploreLink");
+    const exploreMenu = document.getElementById("exploreMenu");
+    const levelsToggle = document.getElementById("levelsToggle");
+    const levelsPanel = document.getElementById("levelsPanel");
+    const selectedLevelLabel = document.getElementById("selectedLevelLabel");
+
+
+    exploreLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      exploreMenu.classList.toggle("active");
+    });
+
+    levelsToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      levelsPanel.classList.toggle("active");
+      exploreMenu.classList.remove("active");
+    });
+
+
+    levelsPanel.querySelectorAll("[data-level]").forEach(row => {
+      row.addEventListener("click", () => {
+        selectedLevelLabel.textContent = row.dataset.level;
+        levelsPanel.classList.remove("active");
+      });
+    });
+
+
+    document.addEventListener("click", function () {
+      exploreMenu.classList.remove("active");
+      levelsPanel.classList.remove("active");
+    });
+  })
+  .catch(err => console.error("Navigation load failed:", err));
+</script>
+<script>
+fetch("navigation.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("navigation-placeholder").innerHTML = html;
+
+
+    document.addEventListener("click", function (e) {
+
+
+      if (e.target.closest("#exploreLink")) {
+        e.preventDefault();
+        const menu = document.getElementById("exploreMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+        return;
+      }
+
+
+      if (e.target.closest("#levelsToggle")) {
+        e.stopPropagation();
+        const panel = document.getElementById("levelsPanel");
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+        return;
+      }
+
+      const levelItem = e.target.closest("[data-level]");
+      if (levelItem) {
+        document.getElementById("selectedLevelLabel").textContent =
+          levelItem.dataset.level;
+        document.getElementById("levelsPanel").style.display = "none";
+        return;
+      }
+
+ 
+      const exploreMenu = document.getElementById("exploreMenu");
+      const levelsPanel = document.getElementById("levelsPanel");
+
+      if (exploreMenu) exploreMenu.style.display = "none";
+      if (levelsPanel) levelsPanel.style.display = "none";
+    });
+  })
+  .catch(err => console.error("Navigation load failed", err));
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const exploreLink = document.getElementById("exploreLink");
+  const exploreMenu = document.getElementById("exploreMenu");
+
+  if (exploreLink && exploreMenu) {
+    exploreLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      exploreMenu.classList.toggle("active");
+      exploreLink.classList.toggle("active");
+    });
+  }
+
+  const levelsToggle = document.getElementById("levelsToggle");
+  const levelsPanel = document.getElementById("levelsPanel");
+  const selectedLevelLabel = document.getElementById("selectedLevelLabel");
+
+  if (levelsToggle && levelsPanel) {
+    levelsToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      levelsPanel.classList.toggle("active");
+    });
+
+    levelsPanel.querySelectorAll(".level-row[data-level]").forEach(row => {
+      row.addEventListener("click", () => {
+        selectedLevelLabel.textContent = row.dataset.level;
+        levelsPanel.classList.remove("active");
+      });
+    });
+  }
+
+  const searchInput = document.getElementById("mainSearchInput");
+  const searchDropdown = document.getElementById("searchDropdown");
+
+  if (searchInput && searchDropdown) {
+    searchInput.addEventListener("focus", () => {
+      searchDropdown.classList.add("active");
+    });
+
+    searchInput.addEventListener("click", (e) => {
+      e.stopPropagation();
+      searchDropdown.classList.add("active");
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (exploreMenu && !exploreMenu.contains(e.target) && !exploreLink.contains(e.target)) {
+      exploreMenu.classList.remove("active");
+      exploreLink.classList.remove("active");
+    }
+
+    if (levelsPanel && !levelsPanel.contains(e.target) && !levelsToggle.contains(e.target)) {
+      levelsPanel.classList.remove("active");
+    }
+
+    if (searchDropdown && !searchDropdown.contains(e.target) && !searchInput.contains(e.target)) {
+      searchDropdown.classList.remove("active");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      exploreMenu?.classList.remove("active");
+      exploreLink?.classList.remove("active");
+      levelsPanel?.classList.remove("active");
+      searchDropdown?.classList.remove("active");
+    }
+  });
+});
+</script>
+
+<script>
+(function loadModule() {
+  const params = new URLSearchParams(window.location.search);
+
+  const courseId = Number(params.get("course"));   // 1
+  const moduleNumber = Number(params.get("module")); // 1 (human number)
+
+  const course = courseModules[courseId];
+  if (!course) {
+    console.error("❌ Course not found");
+    return;
+  }
+
+  
+  const moduleIndex = moduleNumber - 1; 
+  const module = course.modules[moduleIndex];
+
+  if (!module) {
+    console.error("❌ Module not found");
+    return;
+  }
+
+  document.getElementById("courseTitle").textContent = module.title;
+  document.getElementById("headerDescription").textContent = module.description;
+  document.getElementById("statLevel").textContent = course.level;
+  document.getElementById("statTime").textContent = course.time;
+  document.getElementById("statFlex").textContent = course.flex;
+  document.getElementById("statCaps").textContent = course.caps;
+  document.getElementById("courseDescription").textContent = module.description;
+  document.getElementById("mainMediaWrap").innerHTML =
+    createMainMediaHTML(module.mainMedia);
+
+  document.getElementById("demoVideoWrap").innerHTML =
+    createDemoMediaHTML(module.demoMedia || module.mainMedia);
+
+function createLessonMedia(media) {
+  if (!media) return "";
+
+  if (media.type === "video") {
+    return `<video src="${media.src}" autoplay muted loop playsinline></video>`;
+  }
+
+  return `<img src="${media.src}" alt="">`;
+}
+
+document.getElementById("lessonsList").innerHTML =
+  module.lessons.map((lesson, i) => `
+    <div class="lesson-card ${lesson.locked ? "lesson-locked" : ""}">
+
+      <div class="lesson-media">
+        ${createLessonMedia(lesson.media)}
+      </div>
+
+      <div class="lesson-info">
+        <div class="lesson-title">
+          Lesson ${i + 1}: ${lesson.title}
+        </div>
+        <div class="lesson-progress">
+          ${lesson.progress}% complete
+        </div>
+      </div>
+
+      <button class="lesson-action">
+        ${lesson.progress === 100 ? "Continue" : "Start"}
+      </button>
+
+    </div>
+  `).join("");
+
+
+  document.getElementById("learningItems").innerHTML =
+    module.learning.map(l =>
+      `<div class="learning-item"><span class="checkmark">✓</span>${l}</div>`
+    ).join("");
+
+  document.getElementById("skillsItems").innerHTML =
+    module.skills.map(s =>
+      `<div class="learning-item"><span class="checkmark">✓</span>${s}</div>`
+    ).join("");
+
+  renderResources(module);
+})();
+
+</script>
+
+<script>
+
+  function renderResources(module) {
+  const container = document.getElementById("resourcesContainer");
+  if (!container) return;
+
+  if (!module.resources || module.resources.length === 0) {
+    container.innerHTML = "<p style='text-align:center;color:#777;'>No resources available.</p>";
+    return;
+  }
+
+  container.innerHTML = module.resources.map(r =>
+    `<a class="resource-card" href="${r.file || r.url}" target="_blank">
+      <i class="${r.icon || ""} resource-icon"></i>
+      <div class="resource-text">
+        <h3>${r.title}</h3>
+        <p>${r.desc || ""}</p>
+      </div>
+    </a>`
+  ).join('');
+}
+
+</script>
+
+
+  <script>
+function createMainMediaHTML(media) {
+  if (!media) return "";
+
+  if (media.type === "vimeo") {
+    return `<iframe src="${media.src}" allow="autoplay; fullscreen" style="width:100%;height:100%;border-radius:20px;"></iframe>`;
+  }
+
+  if (media.type === "video") {
+    return `<video src="${media.src}" autoplay muted loop playsinline controls style="width:100%;border-radius:20px;"></video>`;
+  }
+
+  if (media.type === "image") {
+    return `<img src="${media.src}" style="width:100%;border-radius:20px;">`;
+  }
+
+  return "";
+}
+
+function loadCourse() {
+  const params = new URLSearchParams(window.location.search);
+  const courseId = Number(params.get("course")) || 1;
+  const moduleIndex = Number(params.get("module")) - 1 || 0;
+
+  const course = courseModules[courseId];
+  if (!course) return console.error("Course not found");
+
+  const module = course.modules[moduleIndex];
+  if (!module) return console.error("Module not found");
+
+  // HEADER
+  courseTitle.textContent = module.title;
+  headerDescription.textContent = course.header;
+  document.getElementById('headerDescription').textContent=course.header;
+  courseDescription.textContent = module.description;
+  statLevel.textContent = course.level;
+  statTime.textContent = course.time;
+  statFlex.textContent = course.flex;
+  statCaps.textContent = course.caps;
+
+  // MAIN MEDIA
+  mainMediaWrap.innerHTML = createMainMediaHTML(module.mainMedia);
+
+  // SKILLS
+  skillsItems.innerHTML = module.skills.map(s => `
+    <div class="learning-item">
+      <span class="checkmark">✓</span>${s}
+    </div>
+  `).join("");
+
+  // TOPICS
+  exploreTopics.innerHTML = (module.topics || []).map(t => `
+    <div style="padding:12px 16px;background:#eef2ff;border-radius:8px;">
+      ${t}
+    </div>
+  `).join("");
+
+  // LESSONS
+  lessonsList.innerHTML = module.lessons.map((l, i) => `
+    <div class="lesson-card ${l.locked ? "lesson-locked" : ""}">
+      <div class="lesson-media">
+        ${l.media.type === "video"
+          ? `<video src="${l.media.src}" muted loop autoplay></video>`
+          : `<img src="${l.media.src}">`}
+      </div>
+      <div class="lesson-info">
+        <div class="lesson-title">Lesson ${i + 1}: ${l.title}</div>
+        <div class="lesson-progress">${l.progress}% complete</div>
+      </div>
+      <button class="lesson-action">${l.progress === 100 ? "Continue" : "Start"}</button>
+    </div>
+  `).join("");
+
+  // RESOURCES
+  if (!module.resources || module.resources.length === 0) {
+    resourcesContainer.innerHTML = `<p style="text-align:center;color:#777;">No resources available.</p>`;
+  } else {
+    resourcesContainer.innerHTML = module.resources.map(r => `
+      <a href="${r.file}" target="_blank" class="resource-card">
+        <i class="${r.icon} resource-icon"></i>
+        <div class="resource-text">
+          <h3>${r.title}</h3>
+          <p>${r.desc}</p>
+        </div>
+      </a>
+    `).join("");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadCourse);
+</script>
+
+<script>
+
+  function loadCourse() {
+  const params = new URLSearchParams(window.location.search);
+  const courseId = Number(params.get("course")) || 1;
+  const moduleIndex = Number(params.get("module")) - 1 || 0;
+
+  const course = courseModules[courseId];
+  if (!course) return;
+
+  const module = course.modules[moduleIndex];
+  if (!module) return;
+
+  // ✅ HEADER (FIXED)
+  document.getElementById("courseTitle").textContent = module.title;
+  document.getElementById("headerDescription").textContent = module.description;
+
+  // Stats
+  document.getElementById("statLevel").textContent = course.level;
+  document.getElementById("statTime").textContent = course.time;
+  document.getElementById("statFlex").textContent = course.flex;
+  document.getElementById("statCaps").textContent = course.caps;
+
+  // Main media
+  document.getElementById("mainMediaWrap").innerHTML =
+    createMainMediaHTML(module.mainMedia);
+
+  // Course description (toggle lives here)
+  const descEl = document.getElementById("courseDescription");
+  const toggleBtn = document.getElementById("toggleDesc");
+
+  const fullDesc = module.description;
+  const shortDesc = fullDesc.slice(0, 160) + "...";
+
+  let open = false;
+  descEl.textContent = shortDesc;
+
+  toggleBtn.onclick = () => {
+    open = !open;
+    descEl.textContent = open ? fullDesc : shortDesc;
+    toggleBtn.textContent = open ? "Show less" : "Read more";
+  };
+}
+
+
+
+</script>
+
+<script>
+  (function() {
+    // Grab the elements
+    const titleEl = document.getElementById("courseTitle");
+    const headerDescEl = document.getElementById("headerDescription");
+
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = Number(urlParams.get("id")) || 1;
+    const moduleIndex = Number(urlParams.get("module")) - 1 || 0;
+
+    // Grab course and module from your data
+    const course = courseModules[courseId];
+    if (!course || !course.modules[moduleIndex]) return;
+    const module = course.modules[moduleIndex];
+
+    // Set the course title (module title) and header description (module description)
+    titleEl.textContent = module.title || course.title;
+    headerDescEl.textContent = module.description || course.header || module.header;
+
+    // Optional: If you want the "courseDescription" paragraph updated too
+    const courseDescEl = document.getElementById("courseDescription");
+    if (courseDescEl) courseDescEl.textContent = module.description || course.description;
+
+  })();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animal Production</title>
+
+  <style>
+    :root {
+      --primary: #5f74e6;
+      --primary-light: #7c8dff;
+      --text-main: #2f2f3a;
+      --text-muted: #7c8199;
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(180deg, #eef1fb, #e7ebf7);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* HEADER */
+    .course-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .header-container {
+      max-width: 640px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      color: var(--text-main);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .image-placeholder {
+      width: 420px;
+      height: 220px;
+      border-radius: 18px;
+      background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+        center / cover no-repeat;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* SHAREABLE CERTIFICATE */
+    .certificate {
+      margin-top: 22px;
+      width: 100%;
+      padding: 20px 26px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: linear-gradient(
+        135deg,
+        rgba(120, 145, 255, 0.4),
+        rgba(255, 255, 255, 0.7)
+      );
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: #4a5fe2;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* glow wash */
+    .certificate::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.6), transparent 45%);
+      opacity: 0.65;
+    }
+
+    .certificate-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5f74e6, #8fa2ff);
+      box-shadow: 0 10px 26px rgba(95, 116, 230, 0.45);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .certificate-icon::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 4px;
+      border: 2px solid white;
+    }
+
+    /* SPARKLES */
+    .sparkle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 3s infinite ease-in-out;
+    }
+
+    .sparkle.s1 {
+      width: 6px;
+      height: 6px;
+      top: 30%;
+      left: 60%;
+      animation-delay: 0s;
+    }
+
+    .sparkle.s2 {
+      width: 4px;
+      height: 4px;
+      top: 55%;
+      left: 35%;
+      animation-delay: 0.8s;
+    }
+
+    .sparkle.s3 {
+      width: 5px;
+      height: 5px;
+      top: 40%;
+      left: 80%;
+      animation-delay: 1.4s;
+    }
+
+    .sparkle.s4 {
+      width: 3px;
+      height: 3px;
+      top: 65%;
+      left: 55%;
+      animation-delay: 2s;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.6);
+      }
+    }
+
+    /* MIDDLE ROW */
+    .middle-row {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .level-card {
+      flex: 1;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .level-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #a8c66c;
+      color: white;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .level-card p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .start-btn {
+      min-width: 460px;
+      height: 66px;
+      border-radius: 20px;
+      border: none;
+      background: linear-gradient(90deg, #5f74e6, #7c8dff);
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      box-shadow: 0 16px 36px rgba(95, 116, 230, 0.55);
+      transition: all 0.25s ease;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 48px rgba(95, 116, 230, 0.7);
+    }
+
+    /* FEATURES */
+    .features {
+      margin-top: 26px;
+      display: flex;
+      gap: 22px;
+    }
+
+    .feature {
+      flex: 1;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #9db7ff, #c7d4ff);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .feature-icon::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 3px;
+      border: 2px solid white;
+    }
+
+    .feature p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .unlock-text {
+      margin-top: 18px;
+      text-align: right;
+      font-size: 13px;
+      color: #9aa0b4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="course-header">
+      <div class="header-container">
+       <h1 id="courseTitle">Course</h1>
+         <p class="course-description-text" id="headerDescription">Description Text</p>
+
+        <div class="certificate">
+          <div class="linkedin-icon"><i class="fab fa-linkedin-in"></i>
+            <span class="sparkle s1"></span>
+            <span class="sparkle s2"></span>
+            <span class="sparkle s3"></span>
+            <span class="sparkle s4"></span>
+          </div>
+          Shareable Certificate
+        </div>
+      </div>
+
+            <!-- RIGHT: Video + Start Experience -->
+             <div class="image-placeholder">
+      <div class="header-right">
+        <div class="video-section">
+          <div class="video-wrapper" id="mainMediaWrap">
+            <div class="video-placeholder" id="mainVideoPlaceholder">
+              <i class="fas fa-play-circle"></i>
+              <span>Course Introduction Video</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="middle-row">
+      <div class="level-card">
+        <div class="level-icon">S</div>
+        <div>
+          <strong>Beginner</strong>
+          <p>Approx. 2 days to complete</p>
+        </div>
+      </div>
+
+      <button class="start-btn">Start Experience</button>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon"></div>
+        <div>
+          <strong>Flexible</strong>
+          <p>Schedule</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon"></div>
+        <div>
+          <strong>Curriculum Aligned</strong>
+          <p>CAPS</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon"></div>
+        <div>
+          <strong>Curriculum Aligned</strong>
+          <p>CAPS</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="unlock-text">
+      Complete the previous module to unlock
+    </div>
+
+  </div>
+</body>
+</html>
